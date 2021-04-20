@@ -7,4 +7,4 @@ This repo contains the key innovation to fix path-based knitr weirdness if rende
     fig.process=normalizePath)      
 ```
 
-https://github.com/TomHarrop/labmeeting-20200416/blob/28d20787b7841fdb4817079f43f6effb50ab8046/style/r_setup.Rmd#L53
+[Here's the code](https://github.com/TomHarrop/labmeeting-20200416/blob/28d20787b7841fdb4817079f43f6effb50ab8046/style/r_setup.Rmd#L53)
