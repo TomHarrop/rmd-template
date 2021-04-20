@@ -1,0 +1,11 @@
+---
+output:
+  beamer_presentation:
+    includes:
+      in_header: style/notes.tex
+      before_body: style/body.tex
+    fig_caption: false
+    fig_crop: false
+classoption:
+    "aspectratio=169"
+---

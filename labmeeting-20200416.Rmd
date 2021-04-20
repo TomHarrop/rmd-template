@@ -1,0 +1,366 @@
+# Rice is nice
+
+:::::::::::::: {.columns align="center"}
+::: {.column width="0.4"}
+
+![](img/sheaf-of-rice_1f33e.png){height=30mm}
+
+\vspace{2ex}
+
+![](img/cooked-rice_1f35a.png){height=30mm}
+
+:::
+::: {.column width="0.6"}
+
+- staple for over half the world's population
+- economically important
+- tasty
+
+:::
+::::::::::::::
+
+::: notes
+\tiny
+- providing  more  than  20%  of   the calories consumed worldwide
+- is grown in >100 countries with 90% of the total global production from Asia
+- production is especially important for the global south
+- increasing rice yield, and doing it sustainably, is a global challenge
+- particularly if you consider increasing population, decreasing land and water availability and climate change
+- nice to have a positive relationship with your study model. i certainly like eating rice
+:::
+
+# Rice is ***so*** nice ...
+
+![](img/41588_2018_40_Fig1_HTML.png){height=60mm}
+
+\scriptsize
+\vspace{1ex}
+\hfill ... we domesticated it twice
+
+\source{
+   \href{https://doi.org/10.1038/s41588-018-0040-0}{Stein \emph{et al}., 2018}
+}
+
+
+::: notes
+\tiny
+- Asian and African clades diverged around two million years ago and were domesticated independently
+- Domesticated Asian rice, *Oryza sativa*, diverged 10,000 years ago via a complex domestication process from the wild Asian rice species, *Oryza rufipogon*.
+- The *O. sativa* species complex involves a network of subspecies, including *O. sativa* ssp. *indica* and *O. sativa* ssp. *japonica* 
+- there is good evidence for introgression event and maybe more than one **after** domestication
+- Domesticated African rice, *Oryza glaberrima*, has a simpler history.
+- It was domesticated from its wild relative, *Oryza barthii*, 3,000 years ago, without subsequent introgression
+- Asian rice is mianly what's grown and consumed around the world, including in Africa
+:::
+
+# `timetree`
+
+![](img/rice.txt_species.png){height=70mm}
+
+\source{
+   \href{http://timetree.org/}{timetree.org}, seen in Philipp Bayer's \href{https://mobile.twitter.com/PhilippBayer/status/1382218805452050432}{tweet}.
+}
+
+::: notes
+\tiny
+- a secret - the reason i decided to talk about this today was that i saw a tweet from phillipp bayer last night about time tree
+- you can upload a list of species and get a figure with a phylogeny, divergence times, and some other stuff... ages, earth impacts, co2 levels etc.
+- so i went and put in the four rice species and wheat as an outgroup
+- unfortunately in this case the tree is wrong but it's still a nice picture
+:::
+
+# ***Panicle***: rice inflorescence
+
+:::::::::::::: {.columns align="center"}
+::: {.column width="0.5"}
+
+![](img/Figure_S1.eps){height=70mm}
+
+:::
+::: {.column width="0.5"}
+
+![](img/images/pan_arch.png){height=70mm}
+
+:::
+::::::::::::::
+
+
+\source{
+Figures: Hélène Adam
+}
+
+::: notes
+\tiny
+- Rice produces grains on complex raceme inflorescences called panicles, which consist of a series of branches of different orders.
+- The rachis is the main axis, and primary, secondary and tertiary branches form higher-order axes
+- Grain yield in rice is linked to inflorescence branching:
+- the number of spikelets produced on the higher-order branches determines the number of grains per panicle
+- Inflorescence size and architecture were targets in selective breeding for improved rice grain yield and quality
+- these traits are different between domesticated and wild accessions
+- so the two separate domestications provide a pretty interesting case to study convergent or parallel evolution
+- Panicle structure is established early after floral transition.
+- The vegetative shoot meristem develops into a reproductive rachis meristem
+- RM produces axillary meristems until it aborts.
+- The axillary meristems on the rachis all develop as primary branches, which themselves produce a variable number of axillary meristems.
+- Axillary meristems on the primary branches can differentiate into secondary branches, some of which may also produce tertiary branch meristems.
+- so branching is ramified
+- Axillary meristems on the primary branches can also differentiate directly into spikelet meristems
+- if they differentiate into spikelets, they are no longer indeterminate, because their fate is fixed
+- so it's this switch from indeterminate to determinate axillary meristems that controls branching complexity... more or less
+- Finally, all axillary meristems and terminal meristems differentiate gradually from the top to the base of the panicle into spikelet meristems and then florets
+- Each rice grain is produced from a single spikelet
+:::
+
+# Panicle architechture is different in domesticated rice
+
+```{r panicles, fig.height=fh*0.5}
+
+#############
+# FUNCTIONS #
+#############
+
+PlotPng <- function(my_png, my_label){
+  
+  my_grob <- rasterGrob(my_png, interpolate = TRUE) 
+  my_expr <- glue::glue('italic("{my_label}")')
+  
+  my_plot <- ggplot(data.frame(x = 1, y = 1, label = my_expr),
+                    aes(x = x, y = y, label = label)) +
+    theme_void(base_size = 8, base_family = "Helvetica") +
+    theme(plot.margin = unit(c(0, 1, 0, 1), "mm")) + #trbl
+    xlim(c(0, 1)) + ylim(c(0, 1)) +
+    annotation_custom(my_grob) +
+    geom_text(parse = TRUE,
+              size = 2.5,
+              hjust = "inward",
+              nudge_x = 0)
+  
+  return(my_plot)
+}
+
+# make plotting data
+spec_order <- c("rufipogon" = "O. rufipogon",
+                "indica" = "O. sativa",
+                "japonica" = "O. sativa",
+                "sativa" = "O. sativa",
+                "barthii" = "O. barthii",
+                "glaberrima" = "O. glaberrima")
+
+
+ob_pan_file <- "img/images/Ob_B88.png"
+os_pan_file <- "img/images/Os_IR64.png"
+og_pan_file <- "img/images/Og_Tog5681.png"
+or_pan_file <- "img/images/Or_W1654.png"
+
+# pngs
+ob_png <- readPNG(ob_pan_file)
+os_png <- readPNG(os_pan_file)
+or_png <- readPNG(or_pan_file)
+og_png <- readPNG(og_pan_file)
+
+# plot pngs
+ob_plot <- PlotPng(ob_png, "O. barthii")
+os_plot <- PlotPng(os_png, "O. sativa")
+or_plot <- PlotPng(or_png, "O. rufipogon")
+og_plot <- PlotPng(og_png, "O. glaberrima")
+
+
+# layout panicles
+top <- plot_grid(or_plot, os_plot, ob_plot, og_plot,
+                 labels = NA,
+                 align = "hv",
+                 axis = "tblr",
+                 ncol = 4,
+                 label_size = 10,
+                 label_fontfamily = "Helvetica")
+
+print(top)
+
+```
+
+\source{
+Images: Ta Kim Nhung and team at LMI Rice
+}
+
+::: notes
+\tiny
+- this is an illustration of the difference between domesticated and wild accessions
+- you can see more branches and grains on the domesticated accessions
+- we thought if we could get some consistent phenotyping of panicles across the different rice species and combine that with rnaseq in developing panicles, we could look at which genes were important in rice domestication...
+- i.e. which genes are controlling the processes that result in more grains in domesticated species
+- presumably by controlling the rate of meristem maturation
+:::
+
+# `P-TRAP`: a Panicle TRAit Phenotyping tool 
+
+![](img/1471-2229-13-122-3.jpg){height=70mm}
+
+
+\source{
+   \href{https://doi.org/10.1186/1471-2229-13-122}{Al-Tam \emph{et al}., 2013}
+}
+
+::: notes
+\tiny
+- there's some software (i think it's an imageJ plugin) that can measure panicle traits from photos of spread panicles that have been sticky taped on a sheet of paper
+- so it's able to detect the primary axis (rachis) and nodes and measure the branch lengths, count spikelets etc.
+:::
+
+# Panicle phenotyping
+
+![](img/Figure_S2.pdf){height=70mm}
+
+::: notes
+\tiny
+- it's still a lot of work and Nhung and her team at LMI rice in Ha Noi phenotyped several hundred of these for this study
+- they've also done a lot more for gwas etc.
+- anyway this is a PCA of panicle phenotypes in the species we were looking at
+- it's one PC per panel with the loadings below (is everyone Ok with that?)
+- the major component (main phenotypic difference) separates domesticated and wild accessions
+- that's driven by spikelet number (obviously) and secondary branch number, more so than branch lengths
+- so it's a question more of ramification and branching complexity rather than say panicle size
+- this is why we think the switch from IM to DM is important, because when the axillary meristem switches to a spikelet meristem, branching stops
+- if it's later the primary branch keeps elongating and producing more secondary branches and spikelets
+- actually secondary branch number correlates almost perfectly with spikelet number but from memory primary branch number only correlates in the domesticated accessions
+:::
+
+
+\source{
+Ta Kim Nhung and team at LMI Rice
+}
+
+# RNAseq in determinate and indeterminate meristems
+
+![](img/Figure_S4.pdf){height=70mm}
+
+\source{
+   Dissections: Hélène Adam
+}
+
+::: notes
+\tiny
+- this is the rnaseq part of the experiment
+- we sampled whole panicles at all of these stages from all four species
+- in the end we could only afford to sequence two samples per species (three reps of course!) so we picked the pre-determination and post-determination samples, so we could look at the switch 
+:::
+
+# How to compare RNAseq across species?
+
+:::::::::::::: {.columns align="center"}
+::: {.column width="0.5"}
+
+![](img/41588_2018_40_Fig1_HTML.png){height=60mm}
+
+:::
+::: {.column width="0.5"}
+
+- map each sample to its own genome and try to make orthology comparisons?
+- map to a single genome?
+- *de novo* transcriptomes from all reads at the same time???
+
+:::
+::::::::::::::
+
+
+\sourceleft{
+   \href{https://doi.org/10.1038/s41588-018-0040-0}{Stein \emph{et al}., 2018}
+}
+
+
+::: notes
+\tiny
+- this is the analysis part, main thing i wanted to talk about
+- this question actually comes up a bit
+- how do we analyse this given that the genomes are not the same?
+- african and asian rice diverged 2 MYA so there are clearly going to be genomic differences, including new genes in some species etc
+- these are the options i could think of at the time
+- map each sample to its own genome and try to make orthology comparisons
+- map all the reads to the best reference genome just use that
+- *de novo* transcriptomes from all reads at the same time???
+- the decision was made for me in the end
+- oryza sativa, domesticated asian rice, has a good reference genome
+- the others were not well assembled or annotated
+- in fact mapping the african rice reads to the o sativa genome was more successful than mapping back to the draft african rice genome
+- so this has problems
+- we're not really looking at all the genes in african rice, we're looking at the genes in african rice that generate reads that map well enough to homologous genes in the asian rice genome
+- reads that don't map to the asian rice genome will just be lost
+- to sum that up, we're only analysing "transcripts from the four studied accessions that have homologs in the reference annotation that are similar enough for reads to map unambiguously" OR SOMETHING LIKE THAT
+- this is obviously biased, but the hope is that because the biases are gene-specific, the log 2 fold changes will "divide out" the bias to a certain extent
+- so i only ever compared genes using l2fcs between stages in the same species
+- thoughts on this?
+:::
+
+# PC4 - domesticated *vs*. wild
+
+![](img/Figure_2.pdf){height=70mm}
+
+::: notes
+\tiny
+- this is just to show that it did work with those limitations in mind
+- this is a pca from the rnaseq data
+- i like to plot each component separately
+- the first three components are just species-specific differences, so african vs asian etc
+- but the fourth component is interesting, because it separates samples based on developmental stage across species
+- suggests that there is a signal there
+:::
+
+# Transcription factors control meristem fate
+
+![](img/Figure_3.pdf){height=70mm}
+
+::: notes
+\tiny
+- this is DE across the lifestage just showing that there are a bunch of TFs that are associated with meristem determination in all species
+- just categorised into transcription factor family and clade
+- it's not that interesting, we already knew that TFs act redundantly so we would expect to see something like this
+:::
+
+
+# Some genes correlate with phenotypes
+
+![](img/Figure_5.pdf){height=70mm}
+
+::: notes
+\tiny
+- i also clustered the genes and then checked if the expression in the clusters correlated with any of the panicle phenotypes
+- there were a couple of clusters that correlated with that main principal component on the phenotype PCA
+- these were also enriched for ap2 transcription factors
+- they also correlate with spikelet number and secondary branch number (it's really the same thing though)
+:::
+
+# Targets of parallel selection?
+
+![](img/Figure_6.pdf){height=70mm}
+
+::: notes
+\tiny
+- a bunch of genes have lower expression in the determinate than indeterminate meristems ONLY IN DOMESTICATED ACCESSIONS
+- i found these genes using the stage : domestication interaction
+- Ap2 transcription factors are strongly enriched in these genes
+- these are candidate maturation factors
+- theory: because they're not being turned on in the domesticated meristems, they're staying indeterminate longer and producing more branches
+:::
+
+# Is there a better analysis?
+
+1. generate groups of orthologous genes across the species (e.g. OrthoFinder)
+2. create a graph from each orthogroup
+3. map reads to the ***graph***
+4. DE analysis at the ***ortholog*** level
+5. profit?
+
+\vspace{2ex}
+
+![](img/screenshot-www.biorxiv.org-2021.04.16-11_22_35.png){height=30mm}
+
+::: notes
+\tiny
+- that was how i did the analysis and it worked (with caveats: probably missing a bunch of genes that don't map properly)
+- since i started looking at genome graphs it made me wonder if there's a better way to do this
+- this question actually comes up a bit, i've heard it several times
+- in fact someone at the rnaseq workshop jess ran for galaxy australia asked the same question
+- process
+- just musings, prefer to be told it's crap cos then i don't have to do anything
+- masters project?
+- deltamethrin resistance in mosquitoes?
+:::

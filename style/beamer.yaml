@@ -1,0 +1,12 @@
+---
+# delete the title to customise the title page in body.tex
+author: "Tom Harrop"
+title: "Genes involved in rice domestication"
+date: \today
+output:
+  beamer_presentation:
+    fig_caption: false
+    fig_crop: false
+classoption:
+    "aspectratio=169"
+---

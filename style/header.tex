@@ -1,0 +1,142 @@
+
+% \institute[]{
+%     \href{https://melbournebioinformatics.org.au}{melbournebioinformatics.org.au}
+%     }
+
+% Enable lato (installed on unix with `tlmgr install lato`)
+\usepackage[defaultsans]{lato}
+\usepackage[utf8]{inputenc}
+
+% Nicer code font
+\usepackage{fontspec}
+\setmonofont{inconsolata}
+
+% title fonts
+\setbeamerfont{title}{parent=lato}
+\setbeamerfont{subtitle}{size=\small,parent=lato}
+\setbeamerfont{author}{size=\scriptsize,parent=lato}
+\setbeamerfont{institute}{size=\scriptsize,parent=lato}
+\setbeamerfont{date}{size=\scriptsize,parent=lato}
+
+% Paste emojis as graphics
+% Have to use latexincludegraphics because includegraphics has been put in a float
+\DeclareRobustCommand{\emojione}{%
+  \begingroup\normalfont
+  \latexincludegraphics[height=\fontcharht\font`\B]{img/curry-rice_1f35b.png}%
+  \endgroup
+}
+
+% Enable citations in footnotes
+\usepackage{calc}
+\usepackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{1in + \hoffset + \oddsidemargin + \textwidth}
+\setlength{\TPVertModule}{\headheight + \textheight}
+\newcommand{\source}[1]{
+  \tiny
+  \begin{textblock}{}[1, 0](1, 1)
+    \hfill
+    \usebeamercolor[fg]{normal text} #1
+  \end{textblock}}
+
+\newcommand{\sourceleft}[1]{
+  \tiny
+  \begin{textblock}{}[0, 1](0, 1)
+    \hspace{1in + \oddsidemargin}
+    \usebeamercolor[fg]{normal text} #1
+  \end{textblock}}
+
+% Remove beamer template
+\setbeamertemplate{frametitle}
+{\begin{centering}\smallskip
+    \insertframetitle\par
+    \smallskip\end{centering}}
+% \setbeamertemplate{itemize item}{$\bullet$}
+\setbeamertemplate{itemize item}{\emojione}
+\setbeamertemplate{itemize subitem}{$\bullet$}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{normal text}{fg=black}
+
+% Centre all figures
+\usepackage{letltxmacro}
+% Save the meaning of \includegraphics
+\usepackage{graphicx}
+\LetLtxMacro\latexincludegraphics\includegraphics
+% Update the include graphics command to include centering
+\renewcommand{\includegraphics}[2][]%
+    {\begin{center}
+    \latexincludegraphics[#1]{#2}
+    \end{center}}
+
+% Define beamer colours
+\definecolor{textcolour}{HTML}{797979}
+\definecolor{headingcolour}{HTML}{797979}
+\definecolor{linkcolour}{HTML}{440154}
+\colorlet{paleheadingcolour}{headingcolour!50!}
+
+% Place colours
+\setbeamercolor{title}{fg=headingcolour}
+\setbeamercolor{frametitle}{fg=headingcolour}
+% \setbeamercolor{normal text}{fg=textcolour}
+\setbeamercolor{itemize item}{fg=linkcolour} % bullets
+\setbeamercolor{itemize subitem}{fg=linkcolour} % sub-bullets
+\setbeamercolor{block title}{fg=headingcolour,bg=linkcolour}
+\setbeamercolor{block body}{fg=headingcolour,bg=linkcolour}
+\setbeamercolor{alerted text}{fg=linkcolour}
+
+% Colour hyperlinks with hyperref package
+\hypersetup{urlcolor=linkcolour, colorlinks=true}
+
+% enable columns
+\def\begincols{\begin{columns}}
+\def\begincol{\begin{column}}
+\def\endcol{\end{column}}
+\def\endcols{\end{columns}}
+
+% show layout
+\usepackage{layout}
+
+% enable transparency for background image
+% (doesn't work for xelatex)
+% use tikz with \node[opacity=0.5] instead
+% \usepackage{pgfsys}
+% \usepackage{transparent}
+
+% Set up title page
+% from https://tex.stackexchange.com/a/3927
+% \usepackage{graphicx}   # already loaded above
+\usepackage{tikz}
+
+\setbeamertemplate{title page}{
+% \begin{tikzpicture}[remember picture,overlay]
+%   \node[at=(current page.center)] {
+%     \latexincludegraphics[keepaspectratio,
+%                           width=\paperwidth,
+%                           height=\paperheight]{style/title_slide_template.eps}
+% };
+% \end{tikzpicture}
+\begin{center}
+\usebeamerfont{title}\inserttitle\par
+\usebeamerfont{subtitle}\insertsubtitle\par
+\usebeamerfont{date}\insertdate\par
+\usebeamerfont{author}\insertauthor\par
+\usebeamerfont{institute}\insertinstitute\par
+\end{center}
+}
+
+% title on slides
+% \setbeamertemplate{headline}{
+%   \ifnum \theframenumber=1
+%   
+%   \else
+%   \vspace{1ex}
+%   \hspace{1in + \hoffset + \oddsidemargin}
+%   \usebeamercolor[fg]{normal text}
+%   \insertdate :
+%   \inserttitle
+%   \hfill
+%   \fi}
+
+
+% presenter notes
+% \def\beginnote{\note\{\begin{itemize}}
+% \def\endnote{\end{itemize}\}}

@@ -1,0 +1,15 @@
+\input{style/header.tex}
+\setbeameroption{show notes on second screen=right}
+
+% This is supposed to fix the white text when the second screen is on
+% https://tex.stackexchange.com/questions/288408/beamer-show-notes-on-second-screen-with-xelatex-and-atbeginsection
+\AtBeginSection{
+    \frame{\insertsectionhead}
+}
+\makeatletter 
+\def\beamer@framenotesbegin{% at beginning of slide
+     \usebeamercolor[fg]{normal text}
+      \gdef\beamer@noteitems{}% 
+      \gdef\beamer@notes{}% 
+}
+\makeatother

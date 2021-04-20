@@ -1,0 +1,55 @@
+```{r setup, include=FALSE, results="hide"}
+library(grid)
+library(data.table)
+library(ggplot2)
+library(scales)
+library(reticulate)
+library(cowplot)
+library(gridExtra)
+library(png)
+
+
+set.seed(42)
+
+# enable Lato on Ubuntu
+my_sis <- Sys.info()["sysname"]
+if (my_sis == "Linux") {
+    sysfonts::font_add(
+        "Lato",
+        regular = "/usr/share/fonts/truetype/lato/Lato-Regular.ttf",
+        bold = "/usr/share/fonts/truetype/lato/Lato-Bold.ttf",
+        italic = "/usr/share/fonts/truetype/lato/Lato-Italic.ttf",
+        bolditalic = "/usr/share/fonts/truetype/lato/Lato-BoldItalic.ttf")
+}
+if(my_sis == "Darwin") {
+    sysfonts::font_add(
+        "Lato",
+        regular = "/Users/tom/Library/Fonts/Lato-Regular.ttf",
+        bold = "/Users/tom/Library/Fonts/Lato-Bold.ttf",
+        italic = "/Users/tom/Library/Fonts/Lato-Italic.ttf",
+        bolditalic = "/Users/tom/Library/Fonts/Lato-BoldItalic.ttf")
+}
+
+# knitr options that work with fig_height: 6, fig_width: 8, and fig_crop: false
+# in beamer presentations
+fh <- grid::convertUnit(unit(227, "pt"), "in", valueOnly = TRUE)
+fw <- grid::convertUnit(unit(398, "pt"), "in", valueOnly = TRUE)
+knitr::opts_chunk$set(
+    dev.args=list(bg = "transparent",
+                  family = "Lato",
+                  pointsize = 8),
+    dev="cairo_pdf",
+    echo = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    cache = TRUE,
+    fig.align = 'center',
+    # out.width = "0.8\\textwidth",
+    # out.height  ="0.8\\textheight")
+    fig.height = fh * 0.9,
+    fig.width = fw,
+    out.width = NULL,
+    out.height = NULL,
+    fig.process=normalizePath)      # prevents knitr putting the wrong path in
+```
+
