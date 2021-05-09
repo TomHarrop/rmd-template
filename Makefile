@@ -20,7 +20,7 @@ notes: $(NOTES)
 .PHONY: source
 source: $(SOURCE) $(PPTX)
 
-cruft = tmpdir notetmp sourcedir
+cruft = tmpdir notetmp
 
 clean:
 	$(RM) -rf $(cruft)

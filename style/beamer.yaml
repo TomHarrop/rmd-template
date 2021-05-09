@@ -1,7 +1,7 @@
 ---
 # delete the title to customise the title page in body.tex
-author: "Tom Harrop"
-title: "Genes involved in rice domestication"
+author: "Your name from `style/beamer.yaml`"
+title: "Presentation title from `style/beamer.yaml`"
 date: \today
 output:
   beamer_presentation:

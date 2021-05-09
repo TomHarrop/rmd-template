@@ -1,7 +1,6 @@
-
-% \institute[]{
-%     \href{https://melbournebioinformatics.org.au}{melbournebioinformatics.org.au}
-%     }
+\institute[]{
+    \href{https://melbournebioinformatics.org.au}{melbournebioinformatics.org.au}
+    }
 
 % Enable lato (installed on unix with `tlmgr install lato`)
 \usepackage[defaultsans]{lato}
@@ -95,11 +94,6 @@
 % show layout
 \usepackage{layout}
 
-% enable transparency for background image
-% (doesn't work for xelatex)
-% use tikz with \node[opacity=0.5] instead
-% \usepackage{pgfsys}
-% \usepackage{transparent}
 
 % Set up title page
 % from https://tex.stackexchange.com/a/3927
@@ -107,13 +101,13 @@
 \usepackage{tikz}
 
 \setbeamertemplate{title page}{
-% \begin{tikzpicture}[remember picture,overlay]
-%   \node[at=(current page.center)] {
-%     \latexincludegraphics[keepaspectratio,
-%                           width=\paperwidth,
-%                           height=\paperheight]{style/title_slide_template.eps}
-% };
-% \end{tikzpicture}
+\begin{tikzpicture}[remember picture,overlay]
+  \node[at=(current page.center)] {
+    \latexincludegraphics[keepaspectratio,
+                          width=\paperwidth,
+                          height=\paperheight]{style/title_slide_template.eps}
+};
+\end{tikzpicture}
 \begin{center}
 \usebeamerfont{title}\inserttitle\par
 \usebeamerfont{subtitle}\insertsubtitle\par
@@ -135,8 +129,3 @@
 %   \inserttitle
 %   \hfill
 %   \fi}
-
-
-% presenter notes
-% \def\beginnote{\note\{\begin{itemize}}
-% \def\endnote{\end{itemize}\}}

@@ -1,0 +1,24 @@
+# Example columns
+
+:::::::::::::: {.columns align="center"}
+::: {.column width="0.4"}
+
+![](img/sheaf-of-rice_1f33e.png){height=30mm}
+
+\vspace{2ex}
+
+![](img/cooked-rice_1f35a.png){height=30mm}
+
+:::
+::: {.column width="0.6"}
+
+- text here
+- tasty rice
+
+:::
+::::::::::::::
+
+::: notes
+\tiny
+- notes go here
+:::
