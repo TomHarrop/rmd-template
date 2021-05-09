@@ -1,0 +1,57 @@
+snippet latexnote
+	::: {.not-in-format .markdown}
+	\note{\tiny\begin{itemize}
+	\setlength{\itemsep}{1pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\item ${1}
+	\end{itemize}
+	:::
+	}
+
+
+snippet note
+	::: notes
+	\tiny
+	${0}
+	:::
+
+
+
+snippet source
+	\source{
+		${4} \href{${2:url}}{${1:text} \emph{et al}., }
+	}
+
+
+snippet cols
+	:::::::::::::: {.columns align="${1:center}"}
+	::: {.column width="${2:0.5}"}
+
+	${4}
+
+	:::
+	::: {.column width="${3:0.5}"}
+
+	${5}
+
+	:::
+	::::::::::::::
+
+
+snippet latexcols
+	\begincols[${1:"align"}]
+	\begincol{${2:width1}\textwidth}
+	
+	${4}
+	
+	\endcol
+	\begincol{${3:width2}\textwidth}
+	
+	${5}
+	
+	\endcol
+	\endcols
+
+snippet img
+	![](${1:img_path}){height=70mm}
