@@ -8,5 +8,6 @@ output:
     fig_caption: false
     fig_crop: false
 classoption:
+    #"aspectratio=169,demo" # disables figures
     "aspectratio=169"
 ---
