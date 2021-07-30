@@ -66,7 +66,7 @@ $(TEXTMP) : tmpdir/%.tex : tmpdir/%.knit.md | style/header.tex style/body.tex tm
 		+RTS -K512m \
 		-RTS $^ \
 		--to beamer \
-		--from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures-smart \
+		--from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures+smart \
 		--output $@ \
 		--highlight-style tango \
 		--self-contained \
