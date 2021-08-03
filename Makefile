@@ -1,6 +1,6 @@
 RMD := $(wildcard *.Rmd)
 TMP := $(RMD:%.Rmd=tmpdir/%.Rmd)
-MD := $(RMD:%.Rmd=tmpdir/%.utf8.md)
+MD := $(RMD:%.Rmd=tmpdir/%.knit.md)
 TEXTMP := $(RMD:%.Rmd=tmpdir/%.tex)
 NOTETMP := $(RMD:%.Rmd=notetmp/%.tex)
 NOTEPDFTMP := $(RMD:%.Rmd=notetmp/%.pdf)
@@ -61,19 +61,19 @@ $(NOTETMP) : notetmp/%.tex : tmpdir/%.utf8.md | style/header.tex style/body.tex 
 		--include-before-body style/body.tex
 
 
-$(TEXTMP) : tmpdir/%.tex : tmpdir/%.utf8.md | style/header.tex style/body.tex tmpdir
+$(TEXTMP) : tmpdir/%.tex : tmpdir/%.knit.md | style/header.tex style/body.tex tmpdir
 		/usr/bin/env pandoc \
 		+RTS -K512m \
 		-RTS $^ \
 		--to beamer \
-		--from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures \
+		--from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures+smart \
 		--output $@ \
 		--highlight-style tango \
 		--self-contained \
 		--include-in-header style/header.tex \
 		--include-before-body style/body.tex
 
-$(MD) : tmpdir/%.utf8.md : tmpdir/%.Rmd | tmpdir
+$(MD) : tmpdir/%.knit.md : tmpdir/%.Rmd | tmpdir
 	R -e "rmarkdown::render('$^',clean=FALSE,run_pandoc=FALSE, knit_root_dir='..')"
 
 $(TMP) : tmpdir/%.Rmd : %.Rmd | style/beamer.yaml style/header.tex style/r_setup.Rmd tmpdir

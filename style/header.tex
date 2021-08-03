@@ -10,6 +10,10 @@
 \usepackage{fontspec}
 \setmonofont{inconsolata}
 
+% maths fonts
+\usepackage[italic,defaultmathsizes,symbolgreek]{mathastext}
+\renewcommand{\familydefault}{\sfdefault}
+
 % title fonts
 \setbeamerfont{title}{parent=lato}
 \setbeamerfont{subtitle}{size=\small,parent=lato}
@@ -21,7 +25,7 @@
 % Have to use latexincludegraphics because includegraphics has been put in a float
 \DeclareRobustCommand{\emojione}{%
   \begingroup\normalfont
-  \latexincludegraphics[height=\fontcharht\font`\B]{img/curry-rice_1f35b.png}%
+  \latexincludegraphics[height=\fontcharht\font`\B]{img/robot_1f916.png}%
   \endgroup
 }
 
@@ -117,6 +121,12 @@
 \end{center}
 }
 
+% slide number footer
+\setbeamertemplate{footline}[frame number]
+
+% SI units
+\usepackage{siunitx}
+
 % title on slides
 % \setbeamertemplate{headline}{
 %   \ifnum \theframenumber=1
@@ -129,3 +139,5 @@
 %   \inserttitle
 %   \hfill
 %   \fi}
+
+
