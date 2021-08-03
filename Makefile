@@ -52,8 +52,8 @@ $(NOTETMP) : notetmp/%.tex : tmpdir/%.utf8.md | style/header.tex style/body.tex 
 		+RTS -K512m \
 		-RTS $^ \
 		-o $@ \
-		--to beamer \
-		--from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures \
+		--to beamer-smart \
+		--from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures+smart \
 		--output $@ \
 		--highlight-style tango \
 		--self-contained \
@@ -65,7 +65,7 @@ $(TEXTMP) : tmpdir/%.tex : tmpdir/%.knit.md | style/header.tex style/body.tex tm
 		/usr/bin/env pandoc \
 		+RTS -K512m \
 		-RTS $^ \
-		--to beamer \
+		--to beamer-smart \
 		--from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures+smart \
 		--output $@ \
 		--highlight-style tango \
