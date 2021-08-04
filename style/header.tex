@@ -3,16 +3,18 @@
     }
 
 % Enable lato (installed on unix with `tlmgr install lato`)
+\PassOptionsToPackage{no-math}{fontspec}
+\usepackage[no-math]{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
 \usepackage[defaultsans]{lato}
 \usepackage[utf8]{inputenc}
 
 % Nicer code font
-\usepackage{fontspec}
 \setmonofont{inconsolata}
 
-% maths fonts
-\usepackage[italic,defaultmathsizes,symbolgreek]{mathastext}
-\renewcommand{\familydefault}{\sfdefault}
+% enable dashes and quotation marks
+% \defaultfontfeatures{Ligatures=TeX}
+
 
 % title fonts
 \setbeamerfont{title}{parent=lato}
@@ -28,6 +30,13 @@
   \latexincludegraphics[height=\fontcharht\font`\B]{img/robot_1f916.png}%
   \endgroup
 }
+
+\DeclareRobustCommand{\inlinepng}[1]{%
+  \begingroup\normalfont
+  \latexincludegraphics[height=\fontcharht\font`\B]{#1}%
+  \endgroup
+}
+
 
 % Enable citations in footnotes
 \usepackage{calc}
@@ -126,6 +135,24 @@
 
 % SI units
 \usepackage{siunitx}
+
+% maths fonts with mathastext
+% this works, but digits are rendered in the normal math font (not Lato)
+% \usepackage[italic,defaultmathsizes,symbolgreek]{mathastext}
+% \renewcommand{\familydefault}{\sfdefault}
+
+% maths fonts with unicode-math
+% allows you to change font, but *only* to a supported font
+% https://www.ctan.org/pkg/unicode-math?lang=en
+% \usepackage{unicode-math}
+% \setmathfont{STIXTwoMath-Regular}
+
+% Below is the "proper" way to do it. It works, in that digits and letters are
+% rendered in Lato, but symbols get clobbered
+% UPDATE: this works, but you need 
+% --variable=mathspec in the pandoc arguments.
+\usepackage{mathspec}
+\setmathfont(Digits,Latin,Greek)[Scale=MatchLowercase]{Lato}
 
 % title on slides
 % \setbeamertemplate{headline}{
