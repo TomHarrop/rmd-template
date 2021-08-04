@@ -47,7 +47,7 @@ $(NOTEPDFTMP) : notetmp/%.pdf : notetmp/%.tex | notetmp
 	xelatex -output-directory=notetmp $^
 
 
-$(NOTETMP) : notetmp/%.tex : tmpdir/%.utf8.md | style/header.tex style/body.tex style/notes.tex notetmp
+$(NOTETMP) : notetmp/%.tex : tmpdir/%.knit.md | style/header.tex style/body.tex style/notes.tex notetmp
 		/usr/bin/env pandoc \
 		+RTS -K512m \
 		-RTS $^ \
@@ -57,6 +57,7 @@ $(NOTETMP) : notetmp/%.tex : tmpdir/%.utf8.md | style/header.tex style/body.tex 
 		--output $@ \
 		--highlight-style tango \
 		--self-contained \
+		--variable=mathspec \
 		--include-in-header style/notes.tex \
 		--include-before-body style/body.tex
 
@@ -70,6 +71,7 @@ $(TEXTMP) : tmpdir/%.tex : tmpdir/%.knit.md | style/header.tex style/body.tex tm
 		--output $@ \
 		--highlight-style tango \
 		--self-contained \
+		--variable=mathspec \
 		--include-in-header style/header.tex \
 		--include-before-body style/body.tex
 
