@@ -82,7 +82,7 @@ $(TMP) : tmpdir/%.Rmd : %.Rmd | style/beamer.yaml style/header.tex style/r_setup
 	cat style/beamer.yaml style/r_setup.Rmd $^ > $@
 
 
-$(SOURCE) : sourcedir/%.md : tmpdir/%.utf8.md | sourcedir
+$(SOURCE) : sourcedir/%.md : tmpdir/%.knit.md | sourcedir
 		/usr/bin/env pandoc \
 		+RTS -K512m \
 		-RTS $^ \
@@ -94,7 +94,7 @@ $(SOURCE) : sourcedir/%.md : tmpdir/%.utf8.md | sourcedir
 		--lua-filter=style/notefilter.lua
 
 
-$(PPTX) : sourcedir/%.pptx : tmpdir/%.utf8.md | sourcedir
+$(PPTX) : sourcedir/%.pptx : tmpdir/%.knit.md | sourcedir
 		/usr/bin/env pandoc \
 		+RTS -K512m \
 		-RTS $^ \
