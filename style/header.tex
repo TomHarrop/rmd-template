@@ -137,6 +137,37 @@
 \end{center}
 }
 
+
+% TOC slides
+% \setbeamercolor{section title}{fg=linkcolour,bg=white}
+% \setbeamercolor{section}{fg=linkcolour,bg=white}
+% \setbeamercolor{section name}{fg=linkcolour,bg=white}
+\setbeamercolor{part title}{fg=linkcolour,bg=white}
+\setbeamercolor{section in toc}{fg=linkcolour,bg=white}
+\setbeamercolor{section in toc shaded}{fg=linkcolour,bg=white}
+\setbeamertemplate{section in toc}{
+  \inserttocsectionnumber.~\underbar{\inserttocsection}
+}
+\setbeamertemplate{section in toc shaded}{
+  \inserttocsectionnumber.~\inserttocsection
+}
+\setbeamertemplate{section page}{
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[at=(current page.center)] {
+      \latexincludegraphics[
+        keepaspectratio,
+        width=\paperwidth,
+        height=\paperheight]{style/title_slide_template.eps}
+  };
+  \end{tikzpicture}
+  \centering
+  \usebeamerfont{title}\inserttitle\par
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{author}
+    \tableofcontents[currentsection]
+  \end{beamercolorbox}
+}
+
 % slide number footer
 \setbeamertemplate{footline}[frame number]
 
