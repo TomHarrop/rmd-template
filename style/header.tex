@@ -97,8 +97,13 @@
 \setbeamercolor{block body}{fg=headingcolour,bg=linkcolour}
 \setbeamercolor{alerted text}{fg=linkcolour}
 
-% Colour hyperlinks with hyperref package
-\hypersetup{urlcolor=linkcolour, colorlinks=true}
+% colour both section and url links
+% see https://tex.stackexchange.com/a/401885
+\hypersetup{
+  colorlinks,
+  allcolors=.,
+  urlcolor=linkcolour,
+}
 
 % enable columns
 \def\begincols{\begin{columns}}
