@@ -192,6 +192,52 @@
 \usepackage{mathspec}
 \setmathfont(Digits,Latin,Greek)[Scale=MatchLowercase]{Lato}
 
+
+% for graphs and networks
+% see https://tex.stackexchange.com/a/85700
+\makeatletter % undo the wrong changes made by mathspec
+\let\RequirePackage\original@RequirePackage
+\let\usepackage\RequirePackage
+\makeatother
+\usepackage{tikz-network}
+\tikzset{
+  network invisible/.code={%
+    \def\VertexFillOpacity{0}
+    \def\VertexLineOpacity{0}
+    \def\VertexTextOpacity{0}
+    \def\EdgeOpacity{0}
+    \def\EdgeTextFillOpacity{0}
+    \def\EdgeTextOpacity{0}},
+  network visible on/.code={%
+    \alt#1{}{\tikzset{network invisible}}}}
+
+% colours for highlights
+\definecolor{viridis1}{HTML}{440154}
+\definecolor{viridis2}{HTML}{472D7B}
+\definecolor{viridis3}{HTML}{3B528B}
+\definecolor{viridis4}{HTML}{2C728E}
+\definecolor{viridis5}{HTML}{21908C}
+\definecolor{viridis6}{HTML}{27AD81}
+\definecolor{viridis7}{HTML}{5DC863}
+\definecolor{viridis8}{HTML}{AADC32}
+\definecolor{viridis9}{HTML}{FDE725}
+
+% hilight on slides in ovspec (#1), see beamer manual for \temporal
+% use like this
+% \begin{scope}[network hili2 on={<2->}{viridis3}]
+\tikzset{
+  network hili/.code={%
+      \def\VertexFillColor{#1}
+      \def\VertexLineColor{#1}
+      \def\EdgeColor{#1}
+      \def\TextColor{#1}%
+  },
+  network hili on/.code args={#1#2}{%
+    \temporal#1{}{%
+        \tikzset{network hili=#2}
+    }{}}}
+
+
 % title on slides
 % \setbeamertemplate{headline}{
 %   \ifnum \theframenumber=1
