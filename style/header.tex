@@ -172,7 +172,13 @@
 \setbeamertemplate{footline}[frame number]
 
 % SI units
-\usepackage{siunitx}
+\usepackage[binary-units]{siunitx}
+\AtBeginDocument{%
+    \DeclareSIUnit\basepair{bp}%
+}
+\AtBeginDocument{%
+    \DeclareSIUnit\base{b}%
+}
 
 % maths fonts with mathastext
 % this works, but digits are rendered in the normal math font (not Lato)
