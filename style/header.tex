@@ -160,12 +160,12 @@
         height=\paperheight]{style/title_slide_template.eps}
   };
   \end{tikzpicture}
-  \centering
+  \begin{center}
   \usebeamerfont{title}\inserttitle\par
   \begin{beamercolorbox}[sep=12pt,center]{part title}
-    \usebeamerfont{author}
-    \tableofcontents[currentsection]
+    \usebeamerfont{author}\tableofcontents[currentsection]
   \end{beamercolorbox}
+  \end{center}
 }
 
 % slide number footer
