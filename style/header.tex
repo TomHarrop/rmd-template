@@ -1,6 +1,15 @@
+
+%%%%%%%%%%%%
+% METADATA %
+%%%%%%%%%%%%
+
 \institute[]{
     \href{https://melbournebioinformatics.org.au}{melbournebioinformatics.org.au}
     }
+
+%%%%%%%%%
+% FONTS %
+%%%%%%%%%
 
 % Enable lato (installed on unix with `tlmgr install lato`)
 \PassOptionsToPackage{no-math}{fontspec}
@@ -15,6 +24,8 @@
 % enable dashes and quotation marks
 % \defaultfontfeatures{Ligatures=TeX}
 
+% adjustbox allows clipping and trimming
+% \usepackage[export]{adjustbox}
 
 % title fonts
 \setbeamerfont{title}{parent=lato}
@@ -22,6 +33,10 @@
 \setbeamerfont{author}{size=\scriptsize,parent=lato}
 \setbeamerfont{institute}{size=\scriptsize,parent=lato}
 \setbeamerfont{date}{size=\scriptsize,parent=lato}
+
+%%%%%%%%%%%%%%%%%
+% ENABLE EMOJIS %
+%%%%%%%%%%%%%%%%%
 
 % Paste emojis as graphics
 % Have to use latexincludegraphics because includegraphics has been put in a float
@@ -37,6 +52,9 @@
   \endgroup
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DEFINE SOURCE COMMANDS %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Enable citations in footnotes
 \usepackage{calc}
@@ -57,6 +75,10 @@
     \usebeamercolor[fg]{normal text} #1
   \end{textblock}}
 
+%%%%%%%%%%%%
+% TEMPLATE %
+%%%%%%%%%%%%
+
 % Remove beamer template
 \setbeamertemplate{frametitle}
 {\begin{centering}\smallskip
@@ -69,7 +91,13 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamercolor{normal text}{fg=black}
 
-% Centre all figures
+% endable to show layout
+\usepackage{layout}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Centre all figures %
+%%%%%%%%%%%%%%%%%%%%%%
+
 \usepackage{letltxmacro}
 % Save the meaning of \includegraphics
 \usepackage{graphicx}
@@ -79,6 +107,10 @@
     {\begin{center}
     \latexincludegraphics[#1]{#2}
     \end{center}}
+
+%%%%%%%%%%%
+% COLOURS %
+%%%%%%%%%%%
 
 % Define beamer colours
 \definecolor{textcolour}{HTML}{797979}
@@ -96,6 +128,7 @@
 \setbeamercolor{block title}{fg=headingcolour,bg=linkcolour}
 \setbeamercolor{block body}{fg=headingcolour,bg=linkcolour}
 \setbeamercolor{alerted text}{fg=linkcolour}
+\setbeamercolor{description item}{fg=linkcolour}
 
 % colour both section and url links
 % see https://tex.stackexchange.com/a/401885
@@ -105,17 +138,24 @@
   urlcolor=linkcolour,
 }
 
+%%%%%%%%%%%%%%%%%%%
+% LATEX-ONLY COLS %
+%%%%%%%%%%%%%%%%%%%
+
+% not needed if you're using pandoc
+% block syntax
+
 % enable columns
-\def\begincols{\begin{columns}}
-\def\begincol{\begin{column}}
-\def\endcol{\end{column}}
-\def\endcols{\end{columns}}
-
-% show layout
-\usepackage{layout}
+% \def\begincols{\begin{columns}}
+% \def\begincol{\begin{column}}
+% \def\endcol{\end{column}}
+% \def\endcols{\end{columns}}
 
 
-% Set up title page
+%%%%%%%%%%%%%%%%%%%%%
+% Set up title page %
+%%%%%%%%%%%%%%%%%%%%%
+
 % from https://tex.stackexchange.com/a/3927
 % \usepackage{graphicx}   # already loaded above
 \usepackage{tikz}
@@ -137,8 +177,10 @@
 \end{center}
 }
 
+%%%%%%%%%%%%%%
+% TOC slides %
+%%%%%%%%%%%%%%
 
-% TOC slides
 % \setbeamercolor{section title}{fg=linkcolour,bg=white}
 % \setbeamercolor{section}{fg=linkcolour,bg=white}
 % \setbeamercolor{section name}{fg=linkcolour,bg=white}
@@ -168,17 +210,41 @@
   \end{center}
 }
 
+%%%%%%%%%%%%%%%%%
+% SLIDE NUMBERS %
+%%%%%%%%%%%%%%%%%
+
 % slide number footer
 \setbeamertemplate{footline}[frame number]
 
-% SI units
-\usepackage[binary-units]{siunitx}
+% title on slides
+% \setbeamertemplate{headline}{
+%   \ifnum \theframenumber=1
+%   
+%   \else
+%   \vspace{1ex}
+%   \hspace{1in + \hoffset + \oddsidemargin}
+%   \usebeamercolor[fg]{normal text}
+%   \insertdate :
+%   \inserttitle
+%   \hfill
+%   \fi}
+
+%%%%%%%%%%%%
+% SI units %
+%%%%%%%%%%%%
+
+\usepackage[binary-units,unit-mode=text]{siunitx}
 \AtBeginDocument{%
     \DeclareSIUnit\basepair{bp}%
 }
 \AtBeginDocument{%
-    \DeclareSIUnit\base{b}%
+    \DeclareSIUnit\base{base}%
 }
+
+%%%%%%%%%%%%%%%
+% MATHS FONTS %
+%%%%%%%%%%%%%%%
 
 % maths fonts with mathastext
 % this works, but digits are rendered in the normal math font (not Lato)
@@ -198,6 +264,9 @@
 \usepackage{mathspec}
 \setmathfont(Digits,Latin,Greek)[Scale=MatchLowercase]{Lato}
 
+%%%%%%%%%%%%%%%%%%%%%
+% GRAPHS / NETWORKS %
+%%%%%%%%%%%%%%%%%%%%%
 
 % for graphs and networks
 % see https://tex.stackexchange.com/a/85700
@@ -244,17 +313,41 @@
     }{}}}
 
 
-% title on slides
-% \setbeamertemplate{headline}{
-%   \ifnum \theframenumber=1
-%   
-%   \else
-%   \vspace{1ex}
-%   \hspace{1in + \hoffset + \oddsidemargin}
-%   \usebeamercolor[fg]{normal text}
-%   \insertdate :
-%   \inserttitle
-%   \hfill
-%   \fi}
 
 
+%%%%%%%%%%%%%%%%%%%%%%
+% INDENT CODE BLOCKS %
+%%%%%%%%%%%%%%%%%%%%%%
+
+% pandoc only defines \Shaded if it's used in the markdown
+% otherwise you get an error
+\ifdefined\Shaded
+    \usepackage[framemethod=TikZ]{mdframed}
+    
+    % mdframed bug
+    % https://tex.stackexchange.com/a/292090
+    \usepackage{xpatch}
+    \makeatletter
+    \xpatchcmd{\endmdframed}
+      {\aftergroup\endmdf@trivlist\color@endgroup}
+      {\endmdf@trivlist\color@endgroup\@doendpe}
+      {}{}
+    \makeatother
+    
+    % https://stackoverflow.com/a/49937901
+    
+    \definecolor{shadecolor}{gray}{.95}
+    \renewenvironment{Shaded}{\begin{mdframed}[
+      backgroundcolor=shadecolor,
+      linecolor = shadecolor,
+      leftmargin=\leftmargini,
+      innerleftmargin=0.5em,
+      innerrightmargin=0.5em,
+      innertopmargin=0.5ex,
+      innerbottommargin=0.5ex,
+      skipabove=2ex,
+      skipbelow=2ex]}{\end{mdframed}}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
