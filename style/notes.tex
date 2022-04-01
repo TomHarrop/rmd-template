@@ -1,8 +1,8 @@
 \input{style/header.tex}
 \setbeameroption{show notes on second screen=right}
 
-# set the size of itemized in the notes page
-# https://tex.stackexchange.com/a/425060
+% set the size of itemized in the notes page
+% https://tex.stackexchange.com/a/425060
 \setbeamerfont{note page}{size=\scriptsize}
 \addtobeamertemplate{note page}{%
      \setlength{\itemsep}{1pt}%
@@ -18,9 +18,6 @@
 
 % This is supposed to fix the white text when the second screen is on
 % https://tex.stackexchange.com/questions/288408/beamer-show-notes-on-second-screen-with-xelatex-and-atbeginsection
-% \AtBeginSection{
-%     \frame{\insertsectionhead}
-% }
 \makeatletter 
 \def\beamer@framenotesbegin{% at beginning of slide
      \usebeamercolor[fg]{normal text}
