@@ -10,7 +10,4 @@ output:
 classoption:
     #"aspectratio=169,demo" # disables figures
     "aspectratio=169"
-colorlinks: true
-linkcolor: linkcolour
-urlcolor: linkcolour
 ---

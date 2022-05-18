@@ -131,8 +131,6 @@
 \setbeamercolor{description item}{fg=linkcolour}
 
 % colour both section and url links
-% note, this is now clobbered by pandoc
-% fix is to define the colours in the yaml
 % see https://tex.stackexchange.com/a/401885
 % \hypersetup{
 %   colorlinks,
@@ -140,10 +138,18 @@
 %   urlcolor=linkcolour,
 % }
 
-% Underline all \hrefs
+% note, url colouring is now clobbered by pandoc
+% fix is to define the colours in the yaml as follows
+% colorlinks: true
+% linkcolor: linkcolour
+% urlcolor: linkcolour
+
+% or use this brute force approach
+% Underline and colour all \hrefs
 \LetLtxMacro\latexhref\href
 \renewcommand{\href}[2]%
-    {\underbar{\latexhref{#1}{#2}}}sub
+    {\color{linkcolour}{\underbar{\latexhref{#1}{#2}}}}
+
 
 %%%%%%%%%%%%%%%%%%%
 % LATEX-ONLY COLS %
