@@ -113,27 +113,29 @@
 %%%%%%%%%%%
 
 % Define beamer colours
-\definecolor{textcolour}{HTML}{797979}
-\definecolor{headingcolour}{HTML}{797979}
-\definecolor{linkcolour}{HTML}{440154}
+\definecolor{textcolour}{HTML}{000000}      % black
+\definecolor{headingcolour}{HTML}{797979}   % grey
+\definecolor{linkcolour}{HTML}{440154}      % viridis purple
 \colorlet{paleheadingcolour}{headingcolour!50!}
 
 % Place colours
 \setbeamercolor{title}{fg=headingcolour}
 \setbeamercolor{frametitle}{fg=headingcolour}
-% \setbeamercolor{normal text}{fg=textcolour}
+\setbeamercolor{normal text}{fg=textcolour}
 \setbeamercolor{itemize item}{fg=linkcolour} % bullets
 \setbeamercolor{itemize subitem}{fg=linkcolour} % sub-bullets
 \setbeamercolor{itemize subsubitem}{fg=linkcolour} % sub-sub-bullets
-\setbeamercolor{block title}{fg=headingcolour,bg=linkcolour}
-\setbeamercolor{block body}{fg=headingcolour,bg=linkcolour}
+% \setbeamercolor{block title}{fg=headingcolour,bg=linkcolour}
+% \setbeamercolor{block body}{fg=headingcolour,bg=linkcolour}
 \setbeamercolor{alerted text}{fg=linkcolour}
 \setbeamercolor{description item}{fg=linkcolour}
 
 % Alert block
 \setbeamertemplate{blocks}[rounded]
+\setbeamercolor{block title}{fg=linkcolour!50, bg=paleheadingcolour!25}
+\setbeamercolor{block body}{fg=textcolour!50, bg=paleheadingcolour!5}
 \setbeamercolor{block title alerted}{fg=linkcolour, bg=paleheadingcolour!75}
-\setbeamercolor{block body alerted}{bg=paleheadingcolour!25}
+\setbeamercolor{block body alerted}{fg=textcolour, bg=paleheadingcolour!25}
 
 % colour both section and url links
 % see https://tex.stackexchange.com/a/401885
