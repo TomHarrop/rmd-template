@@ -1,24 +1,203 @@
-# Example columns
+---
+title: |
+  Lecture title
+date: |
+  Subject  
+  Week
+author: |
+  Me  
+---
+
+# Contents slide starts with a single \#
+
+## Normal slides start with a double \#\#
+
+- content goes here
+
+## Columns
 
 :::::::::::::: {.columns align="center"}
-::: {.column width="0.4"}
+::: {.column width="0.5"}
 
-![](img/sheaf-of-rice_1f33e.png){height=30mm}
-
-\vspace{2ex}
-
-![](img/cooked-rice_1f35a.png){height=30mm}
+left col
 
 :::
-::: {.column width="0.6"}
+::: {.column width="0.5"}
 
-- text here
-- tasty rice
+right col
 
 :::
 ::::::::::::::
 
-::: notes
-\tiny
-- notes go here
+## Overprint
+
+## Clipped images
+
+
+## Code blocks
+
+:::::::::::::: {.columns align="center"}
+::: {.column width="0.33"}
+
+\footnotesize
+
+```{.anyclass}
+put anything in the
+class name and you
+get grey
+```
+
+- it should match the text indent
+
 :::
+::: {.column width="0.33"}
+
+\footnotesize
+
+```{.anyclass .numberLines}
+add .numberLines for
+numbered lines
+```
+
+
+:::
+::: {.column width="0.33"}
+
+\footnotesize
+
+```{.anyclass .numberLines}
+work out bash/python
+```
+
+
+:::
+::::::::::::::
+
+## Alert blocks
+
+:::::::::::::: {.columns align="center"}
+::: {.column width="0.5"}
+
+::: block
+
+### Alerted block {.alert}
+
+- alerted content
+
+:::
+
+- use the three colons to break out of the alertblock
+
+:::
+
+::: {.column width="0.5"}
+
+### We also have unstyled H3 blocks
+
+- this matches the layout of alert blocks
+- but has no colour
+
+\scriptsize
+\setbeamerfont{block title}{size=\tiny}
+
+### You need to use latex code to style the headers {.alert}
+
+- use the contrast sparingly for highlights
+
+
+:::
+::::::::::::::
+
+# Example algorithms
+
+## Example algoriths
+
+:::::::::::::: {.columns align="center"}
+::: {.column width="0.5"}
+
+<!-- alert looks good with \usepackage[lined,linesnumbered]{algorithm2e} -->
+<!-- otherwise, use \usepackage[lined,linesnumbered,ruled,titlenotnumbered]{algorithm2e} -->
+
+\scriptsize
+\setbeamerfont{block title}{size=\footnotesize}
+
+
+### {.alert}
+
+\RestyleAlgo{algoruled}
+
+\begin{algorithm}[H]  
+
+\NoCaptionOfAlgo
+\DontPrintSemicolon
+\SetAlgoVlined
+%\SetAlgoNoEnd
+
+\caption{K-means $(D, k, \epsilon)$}
+
+$t=0$\;
+Randomly initialize $k$ centroids: $\mu_1^t, \mu_2^t, ..., \mu_k^t \in \mathbb{R}^d$ \;
+
+\Repeat{$ \sum_{i=1}^{k}{\left\Vert \mu_i^t - \mu_i^{t-1} \right\Vert^2 \leq \epsilon}$}{
+  $t \gets t + 1$ \;
+  $C_j \gets \varnothing$ for all $j = 1, ..., k$ \;
+  \tcp{Cluster assignment step}
+  \ForEach{$x_j \in D$}{
+    $j^* \gets \arg \min_i \left\{\left\Vert x_j - \mu_i^t \right\Vert^2 \right\}$
+      \tcp*[r]{Assign $x_j$ to closest centroid}
+    $C_{j^*} \gets C_{j^*} \cup \left\{x_j \right\}$ \;
+    }
+  \tcp{Centroid update step}
+  \ForEach{$i=1 \text{ to } k$}{
+    $ \mu_i^t \gets \frac{1}{\lvert C_i \rvert} \sum_{x_j \in C_i}{x_j}$
+  }
+}
+
+\end{algorithm}
+
+:::
+::: {.column width="0.5"}
+
+\scriptsize
+\setbeamerfont{block title}{size=\footnotesize}
+
+### {.alert}
+
+
+\RestyleAlgo{algoruled}
+
+\begin{procedure}[H]  
+
+%\NoCaptionOfAlgo
+\DontPrintSemicolon
+%\SetAlgoVlined
+\SetAlgoNoEnd
+
+\caption{Dbscan(X, $\epsilon$, minpts)}
+
+\SetKwFunction{GetNeighbours}{GetNeighbours} 
+
+\ForEach{unvisited point $x \in X$}{
+  mark $x$ as visited \;
+  $N \gets \GetNeighbours{x, ε}$ \;
+  \If{$\lvert N \rvert < minpts$}{
+    mark $x$ as noise}
+  \Else{
+    $C \gets \left\{ x \right\}$ \;
+    \ForEach{point $x' \in N$}{
+      $N \gets N \setminus x'$ \;
+      \If{$x'$ is not visited}{
+        mark $x'$ as visited \;
+        $N' \gets \GetNeighbours{x′, ε}$ \;
+        \If{$\lvert N' \rvert \geq minpts$}{
+          $N \gets N \cup N'$}}
+      \If{$x'$ is not yet member of any cluster}{
+        $C \gets C \cup \left\{ x' \right\}$}
+    }}}
+
+
+\end{procedure}
+
+:::
+::::::::::::::
+
