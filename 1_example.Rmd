@@ -201,3 +201,22 @@ Randomly initialize $k$ centroids: $\mu_1^t, \mu_2^t, ..., \mu_k^t \in \mathbb{R
 :::
 ::::::::::::::
 
+
+## label equations
+
+:::::::::::::: {.columns align="center"}
+::: {.column width="0.5"}
+
+
+\begin{alignat*}{3}
+& \text{Non-negativity: } && d(a,b) && \geq 0 \\
+& \text{Identity: } && d(a,a) && = 0 \\
+& \text{Symmetry: } && d(a,b) && = d(b,a) \\
+& \text{Triangle inequality: }  && d(a,c) && \leq d(a,b)+ d(b,c)
+\end{alignat*}
+
+:::
+::: {.column width="0.5"}
+
+:::
+::::::::::::::
