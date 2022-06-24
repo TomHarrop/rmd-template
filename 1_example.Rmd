@@ -218,7 +218,14 @@ Randomly initialize $k$ centroids: $\mu_1^t, \mu_2^t, ..., \mu_k^t \in \mathbb{R
 :::
 ::: {.column width="0.5"}
 
-tables.
+
+:::
+::::::::::::::
+
+## tables
+
+:::::::::::::: {.columns align="center"}
+::: {.column width="0.5"}
 
 It's safe to use markdown in the table cells, e.g. \textcolor{viridis5}{like this}.
 
@@ -229,6 +236,25 @@ pander::pandoc.table(
   split.tables = Inf,
   split.cells = Inf,
   style = "multiline",
+  justify = "cc",
+  keep.line.breaks= FALSE)
+```
+
+
+:::
+::: {.column width="0.5"}
+
+
+Suppress column headers
+
+```{r treeseq, results='asis'}
+mytab2 <- data.table::fread("data/treeseq.txt", header = FALSE)
+names(mytab2) <- NULL
+pander::pandoc.table(
+  mytab2,
+  split.tables = Inf,
+  split.cells = Inf,
+  style = "simple",
   justify = "cc",
   keep.line.breaks= FALSE)
 ```

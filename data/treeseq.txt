@@ -1,0 +1,5 @@
+\textcolor{viridis1}{S1},\textcolor{viridis1}{ACTGTG}
+\textcolor{viridis3}{S2},\textcolor{viridis3}{TCACAG}
+\textcolor{viridis5}{S3},\textcolor{viridis5}{AGTCAG}
+\textcolor{viridis7}{S4},\textcolor{viridis7}{AGTGTC}
+\textcolor{viridis9}{S5},\textcolor{viridis9}{TCAGTG}
