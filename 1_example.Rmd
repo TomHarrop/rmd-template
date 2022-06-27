@@ -284,6 +284,7 @@ pander::pandoc.table(
 ## Annotated figure {.fragile}
 
 
+
 \begin{center}
 
 \tikzset{
@@ -302,6 +303,7 @@ pander::pandoc.table(
 };
 
 % Scope for axes
+% from https://latexdraw.com/how-to-annotate-an-image-in-latex/
 \begin{scope}[
   x={($0.1*(image.south east)$)},
   y={($0.1*(image.north west)$)}]
