@@ -219,6 +219,24 @@ Randomly initialize $k$ centroids: $\mu_1^t, \mu_2^t, ..., \mu_k^t \in \mathbb{R
 ::: {.column width="0.5"}
 
 
+\footnotesize\centering
+
+Conditional probability:
+
+\vspace{2ex}
+
+$$
+\tikzmarknode{A}{P(A \mid B)} = \frac{\tikzmarknode{B}{P(A \cap B)}}{\tikzmarknode{C}{P(B)}}
+\begin{tikzpicture}[overlay, remember picture,shorten <=1mm,
+                    nodes={inner sep=1pt, align=center, font=\tiny}]
+\draw (A.south) ++ (0, -0.1) node[below, text=viridis1] {Probability of\\ A given B};
+\draw (B.north)  ++ (0, 0.1) node[above, text=viridis5] {Probability of\\ A and B};
+\draw (C.south)  ++ (0, -0.1) node[below, text=viridis5] {Probability of B};
+\end{tikzpicture}
+\vspace{3ex}
+$$
+
+
 :::
 ::::::::::::::
 
