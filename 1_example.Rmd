@@ -279,3 +279,60 @@ pander::pandoc.table(
 
 :::
 ::::::::::::::
+
+
+## Annotated figure {.fragile}
+
+
+\begin{center}
+
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt=#1{}{invisible}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+  },
+}
+
+\begin{tikzpicture}
+<!-- you HAVE to use latexincludegraphics -->
+
+\node[above right, inner sep=0] (image) at (0,0) {
+  \latexincludegraphics[width=0.9\textwidth]{img/COMP90014_week5B-012.jpg}
+};
+
+% Scope for axes
+\begin{scope}[
+  x={($0.1*(image.south east)$)},
+  y={($0.1*(image.north west)$)}]
+
+  % Grid
+  \draw[lightgray,step=1] (image.south west) grid (image.north east);
+
+  % Axes' labels
+  \foreach \x in {0,1,...,10} { \node [below] at (\x,0) {\x}; }
+  \foreach \y in {0,1,...,10} { \node [left] at (0,\y) {\y};}
+
+  \begin{scope}[visible on=<2>]
+
+    \draw[viridis8, very thick] %
+      (3.5, 3.5) rectangle (5.5,9.5) ;
+
+    \node[viridis8,
+          anchor = south] %
+      at (4.5,9.5) {Different strategies} ;
+    
+    \draw[->, viridis8, line width=2pt] (5.5, 6.5) -- (8,9) ;
+
+    \node[viridis8,
+          anchor=west] %
+      at (8,9) {This is called holdout} ;
+
+  \end{scope}
+
+\end{scope}
+
+
+\end{tikzpicture}
+\end{center}
+
