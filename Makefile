@@ -1,56 +1,54 @@
+# variables
 RMD := $(wildcard *.Rmd)
-TMP := $(RMD:%.Rmd=tmpdir/%.Rmd)
-MD := $(RMD:%.Rmd=tmpdir/%.knit.md)
-TEXTMP := $(RMD:%.Rmd=tmpdir/%.tex)
-NOTETMP := $(RMD:%.Rmd=notetmp/%.tex)
-NOTEPDFTMP := $(RMD:%.Rmd=notetmp/%.pdf)
-PDFTMP := $(RMD:%.Rmd=tmpdir/%.pdf)
-PDF := $(RMD:%.Rmd=pdf/%.pdf)
-TEX := $(RMD:%.Rmd=tex/%.tex)
-NOTES := $(RMD:%.Rmd=pdfnotes/%.pdf)
-SOURCE := $(RMD:%.Rmd=sourcedir/%.md)
-PPTX := $(RMD:%.Rmd=sourcedir/%.pptx)
 
+HANDOUTS := $(RMD:%.Rmd=handout_files/%.pdf)
+NOTES := $(RMD:%.Rmd=pdfnotes/%.pdf)
+PDF := $(RMD:%.Rmd=pdf/%.pdf)
+PPTX := $(RMD:%.Rmd=sourcedir/%.pptx)
+SOURCE := $(RMD:%.Rmd=sourcedir/%.md)
+
+cruft = knit_files tex tex_notes
+
+# targets
 .PHONY: all
-all: $(PDF) $(TEX)
+all: $(PDF)
 
 .PHONY: notes
 notes: $(NOTES)
 
+.PHONY: handouts
+handouts: $(HANDOUTS)
+
 .PHONY: source
 source: $(SOURCE) $(PPTX)
-
-cruft = tmpdir notetmp
 
 clean:
 	$(RM) -rf $(cruft)
 
-$(TEX) : tex/%.tex : tmpdir/%.tex | tex
-	cp $^ $@
+# handouts pipeline (no animations)
+$(HANDOUTS) : handout_files/%.pdf : tex/%.tex | handout_files
+	$(eval TMP := $(shell mktemp -d))
+	sed  "s/documentclass\[/documentclass[handout,/g" $< > $(TMP)/source.tex
+	xelatex	-output-directory=$(TMP) $(TMP)/source.tex \
+	&& xelatex	-output-directory=$(TMP) $(TMP)/source.tex \
+	&& xelatex	-output-directory=$(TMP) $(TMP)/source.tex
+	cp $(TMP)/source.pdf $@
+	rm -r $(TMP)
 
-$(PDF) : pdf/%.pdf : tmpdir/%.pdf | pdf
-	cp $^ $@
+# Notes pipeline
+$(NOTES) : pdfnotes/%.pdf : tex_notes/%.tex | pdfnotes
+	$(eval TMP := $(shell mktemp -d))
+	cp $< $(TMP)/source.tex
+	xelatex	-output-directory=$(TMP) $(TMP)/source.tex \
+	&& xelatex	-output-directory=$(TMP) $(TMP)/source.tex \
+	&& xelatex	-output-directory=$(TMP) $(TMP)/source.tex
+	cp $(TMP)/source.pdf $@
+	rm -r $(TMP)
 
-$(NOTES) : pdfnotes/%.pdf : notetmp/%.pdf | pdfnotes
-	cp $^ $@
-
-
-$(PDFTMP) : tmpdir/%.pdf : tmpdir/%.tex | tmpdir
-	xelatex -output-directory=tmpdir $^
-	xelatex -output-directory=tmpdir $^
-	xelatex -output-directory=tmpdir $^
-
-
-$(NOTEPDFTMP) : notetmp/%.pdf : notetmp/%.tex | notetmp
-	xelatex -output-directory=notetmp $^
-	xelatex -output-directory=notetmp $^
-	xelatex -output-directory=notetmp $^
-
-
-$(NOTETMP) : notetmp/%.tex : tmpdir/%.knit.md | style/header.tex style/body.tex style/notes.tex notetmp
+tex_notes/%.tex : knit_files/%.knit.md style/header.tex style/body.tex style/notes.tex style/title_slide_template.eps | tex_notes
 		/usr/bin/env pandoc \
 		+RTS -K512m \
-		-RTS $^ \
+		-RTS $< \
 		-o $@ \
 		--to beamer-smart \
 		--from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures+smart \
@@ -61,11 +59,21 @@ $(NOTETMP) : notetmp/%.tex : tmpdir/%.knit.md | style/header.tex style/body.tex 
 		--include-in-header style/notes.tex \
 		--include-before-body style/body.tex
 
+# Full PDF pipeline
+$(PDF) : pdf/%.pdf : tex/%.tex | pdf
+	$(eval TMP := $(shell mktemp -d))
+	cp $< $(TMP)/source.tex
+	xelatex	-output-directory=$(TMP) $(TMP)/source.tex \
+	&& xelatex	-output-directory=$(TMP) $(TMP)/source.tex \
+	&& xelatex	-output-directory=$(TMP) $(TMP)/source.tex
+	cp $(TMP)/source.pdf $@
+	rm -r $(TMP)
 
-$(TEXTMP) : tmpdir/%.tex : tmpdir/%.knit.md | style/header.tex style/body.tex tmpdir
+
+tex/%.tex : knit_files/%.knit.md style/header.tex style/body.tex style/title_slide_template.eps | tex
 		/usr/bin/env pandoc \
 		+RTS -K512m \
-		-RTS $^ \
+		-RTS $< \
 		--to beamer-smart \
 		--from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash-implicit_figures+smart \
 		--output $@ \
@@ -75,14 +83,8 @@ $(TEXTMP) : tmpdir/%.tex : tmpdir/%.knit.md | style/header.tex style/body.tex tm
 		--include-in-header style/header.tex \
 		--include-before-body style/body.tex
 
-$(MD) : tmpdir/%.knit.md : tmpdir/%.Rmd | tmpdir
-	R -e "rmarkdown::render('$^',clean=FALSE,run_pandoc=FALSE, knit_root_dir='..')"
-
-$(TMP) : tmpdir/%.Rmd : %.Rmd | style/beamer.yaml style/header.tex style/r_setup.Rmd tmpdir
-	cat style/beamer.yaml style/r_setup.Rmd $^ > $@
-
-
-$(SOURCE) : sourcedir/%.md : tmpdir/%.knit.md | sourcedir
+# PPTX slides and clean markdown
+$(SOURCE) : sourcedir/%.md : knit_files/%.knit.md | sourcedir
 		/usr/bin/env pandoc \
 		+RTS -K512m \
 		-RTS $^ \
@@ -94,7 +96,7 @@ $(SOURCE) : sourcedir/%.md : tmpdir/%.knit.md | sourcedir
 		--lua-filter=style/notefilter.lua
 
 
-$(PPTX) : sourcedir/%.pptx : tmpdir/%.knit.md | sourcedir
+$(PPTX) : sourcedir/%.pptx : knit_files/%.knit.md | sourcedir
 		/usr/bin/env pandoc \
 		+RTS -K512m \
 		-RTS $^ \
@@ -106,20 +108,31 @@ $(PPTX) : sourcedir/%.pptx : tmpdir/%.knit.md | sourcedir
 		--lua-filter=style/notefilter.lua
 
 
-sourcedir:
-	mkdir $@
+# knit the RMD
+knit_files/%.knit.md : knit_files/%.Rmd | knit_files
+	R -e "rmarkdown::render('$^',clean=FALSE,run_pandoc=FALSE, knit_root_dir='..')"
 
-tmpdir:
+knit_files/%.Rmd : %.Rmd  style/beamer.yaml style/header.tex style/r_setup.Rmd | knit_files
+	cat style/beamer.yaml style/r_setup.Rmd $< > $@
+
+# working directories
+sourcedir:
 	mkdir $@
 
 pdf:
 	mkdir $@
 
+knit_files:
+	mkdir $@
+
 tex:
 	mkdir $@
 
-notetmp:
+tex_notes:
 	mkdir $@
 
 pdfnotes:
+	mkdir $@
+
+handout_files:
 	mkdir $@
