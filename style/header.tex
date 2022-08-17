@@ -288,7 +288,12 @@
 % UPDATE: this works, but you need 
 % --variable=mathspec in the pandoc arguments.
 \usepackage{mathspec}
-\setmathfont(Digits,Latin,Greek)[Scale=MatchLowercase]{Lato}
+% \setmathfont(Digits,Latin,Greek)[Scale=MatchLowercase]{Lato}
+% OR
+\setallmainfonts(Digits,Latin,Greek)[Scale=MatchLowercase]{Lato}
+% define a Var command for multi-character variables
+% see https://tex.stackexchange.com/questions/482743/typesetting-multi-letter-variable-names-in-math-mode#comment1220353_482743
+\newcommand\Var[1]{\mathrm{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%
 % GRAPHS / NETWORKS %
