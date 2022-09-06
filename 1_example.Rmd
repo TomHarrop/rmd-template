@@ -338,3 +338,49 @@ pander::pandoc.table(
 \end{tikzpicture}
 \end{center}
 
+
+
+## Nonlinear dimensionality reduction
+
+:::::::::::::: {.columns align="center"}
+::: {.column width="0.4"}
+
+The itemize length in the right column is set to the length of `Geodesic: + \labelsep` 
+
+```latex
+\newlength{\somelength}
+\settowidth{\somelength}{Geodesic:}
+\setbeamersize{description width=\somelength}
+\setlength{\leftmargini}{\somelength + \labelsep}
+```
+
+:::
+::: {.column width="0.6"}
+
+\newlength{\somelength}
+\settowidth{\somelength}{Geodesic:}
+\setbeamersize{description width=\somelength}
+\setlength{\leftmargini}{\somelength + \labelsep}
+
+**Manifold**:
+
+:   a nonlinear low-dimensional surface
+
+\smallskip
+
+- data often lies on or near manifolds
+
+
+### ISOMAP (Isometric Feature Mapping):
+
+- preserves the global, non-linear geometry of the data by preserving the ***geodesic*** distances
+
+\smallskip
+
+Geodesic:
+
+:   shortest route between two points on the surface of the manifold
+
+:::
+::::::::::::::
+
