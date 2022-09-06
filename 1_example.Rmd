@@ -343,9 +343,11 @@ pander::pandoc.table(
 ## Nonlinear dimensionality reduction
 
 :::::::::::::: {.columns align="center"}
-::: {.column width="0.4"}
+::: {.column width="0.5"}
 
-The itemize length in the right column is set to the length of `Geodesic: + \labelsep` 
+The itemize length in the right column is set to the length of `Geodesic: + \labelsep` as follows:
+
+\tiny
 
 ```latex
 \newlength{\somelength}
@@ -354,8 +356,10 @@ The itemize length in the right column is set to the length of `Geodesic: + \lab
 \setlength{\leftmargini}{\somelength + \labelsep}
 ```
 
+This lines the bullets up with the description labels... nice! 
+
 :::
-::: {.column width="0.6"}
+::: {.column width="0.5"}
 
 \newlength{\somelength}
 \settowidth{\somelength}{Geodesic:}
