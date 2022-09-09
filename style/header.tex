@@ -96,11 +96,12 @@
 \setlength{\leftmarginii}{1.5em}
 \setlength{\leftmarginiii}{1em}
 
+% define a length for itemize indents
+\newlength{\itemizeindent}
 % locally override itemize indents to match descriptions like this
-% \newlength{\somelength}
-% \settowidth{\somelength}{Geodesic:}
-% \setbeamersize{description width=\somelength}
-% \setlength{\leftmargini}{\somelength + \labelsep}
+% \settowidth{\itemizeindent}{Geodesic:}
+% \setbeamersize{description width=\itemizeindent}
+% \setlength{\leftmargini}{\itemizeindent + \labelsep}
 
 % endable to show layout
 \usepackage{layout}
@@ -271,7 +272,7 @@
     \DeclareSIUnit\basepair{bp}%
 }
 \AtBeginDocument{%
-    \DeclareSIUnit\base{base}%
+    \DeclareSIUnit\base{base}%F
 }
 
 %%%%%%%%%%%%%%%
