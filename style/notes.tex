@@ -1,9 +1,13 @@
 \input{style/header.tex}
 \setbeameroption{show notes on second screen=right}
 
+% this removes the header and mini-slide from the notes page
+% but allows bigger font in notes
+\setbeamertemplate{note page}[plain]
+
 % set the size of itemized in the notes page
 % https://tex.stackexchange.com/a/425060
-\setbeamerfont{note page}{size=\scriptsize}
+\setbeamerfont{note page}{size=\small}
 \addtobeamertemplate{note page}{%
      \setlength{\itemsep}{1pt}%
      \setlength{\parskip}{0pt}%
@@ -11,9 +15,9 @@
      \setlength{\leftmargini}{2ex}%
      \setlength{\leftmarginii}{2ex}%
      \setlength{\leftmarginiii}{2ex}%
-     \setbeamerfont{itemize/enumerate body}{size=\tiny}%
-     \setbeamerfont{itemize/enumerate subbody}{size=\tiny}%
-     \setbeamerfont{itemize/enumerate subsubbody}{size=\tiny}%
+     \setbeamerfont{itemize/enumerate body}{size=\small}%
+     \setbeamerfont{itemize/enumerate subbody}{size=\small}%
+     \setbeamerfont{itemize/enumerate subsubbody}{size=\small}%
      }{}
 
 % This is supposed to fix the white text when the second screen is on
