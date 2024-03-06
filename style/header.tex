@@ -4,8 +4,25 @@
 %%%%%%%%%%%%
 
 \institute[]{
+    \href{https://usegalaxy.org.au}{usegalaxy.org.au}
+    \and
     \href{https://melbournebioinformatics.org.au}{melbournebioinformatics.org.au}
     }
+
+\title{Genome annotation with Funannotate}
+
+\newif\ifplacelogo % create a new conditional
+\placelogotrue % set it to true
+
+\logo{
+\begin{tikzpicture}[remember picture, overlay]
+\node[right=0.5cm] at (current page.154){
+    \latexincludegraphics[width=1cm]{img/Galaxy-Aust-Logo-Stacked-RGB.pdf}
+};
+\end{tikzpicture}
+}
+% \latexincludegraphics[width=1cm]{img/Galaxy-Aust-Logo-Stacked-RGB.pdf}
+
 
 %%%%%%%%%
 % FONTS %
@@ -85,8 +102,8 @@
     \insertframetitle\par
     \smallskip\end{centering}}
 % \setbeamertemplate{itemize item}{$\bullet$}
-\setbeamertemplate{itemize item}{\emojione}
-\setbeamertemplate{itemize subitem}{$\bullet$}
+\setbeamertemplate{itemize item}{$\bullet$}
+\setbeamertemplate{itemize subitem}{$\circ$}
 \setbeamertemplate{itemize subsubitem}{$\circ$}
 \setbeamertemplate{navigation symbols}{}
 \setbeamercolor{normal text}{fg=black}
@@ -127,17 +144,19 @@
 % Define beamer colours
 \definecolor{textcolour}{HTML}{000000}      % black
 \definecolor{headingcolour}{HTML}{797979}   % grey
-\definecolor{linkcolour}{HTML}{440154}      % viridis purple
+\definecolor{linkcolour}{RGB}{35,61,143}      % galaxy blue
+\definecolor{bulletcolour}{RGB}{204,189,43}  % galaxy gold
 \colorlet{paleheadingcolour}{headingcolour!50!}
 
 % Place colours
 \setbeamercolor{title}{fg=headingcolour}
 \setbeamercolor{frametitle}{fg=headingcolour}
 \setbeamercolor{normal text}{fg=textcolour}
-\setbeamercolor{itemize item}{fg=linkcolour}        % bullets
-\setbeamercolor{itemize subitem}{fg=linkcolour}     % sub-bullets
-\setbeamercolor{itemize subsubitem}{fg=linkcolour}  % sub-sub-bullets
+\setbeamercolor{itemize item}{fg=bulletcolour}        % bullets
+\setbeamercolor{itemize subitem}{fg=bulletcolour}     % sub-bullets
+\setbeamercolor{itemize subsubitem}{fg=bulletcolour}  % sub-sub-bullets
 \setbeamercolor{enumerate item}{fg=linkcolour}      % numbered lists
+\setbeamercolor{enumerate subitem}{fg=linkcolour}
 % \setbeamercolor{block title}{fg=headingcolour,bg=linkcolour}
 % \setbeamercolor{block body}{fg=headingcolour,bg=linkcolour}
 \setbeamercolor{alerted text}{fg=linkcolour}
@@ -195,19 +214,24 @@
 
 \setbeamertemplate{title page}{
 \begin{tikzpicture}[remember picture,overlay]
-  \node[at=(current page.center)] {
+  \node[at=(current page.north west),anchor=north west] {
     \latexincludegraphics[keepaspectratio,
-                          width=\paperwidth,
-                          height=\paperheight]{style/title_slide_template.eps}
-};
+                          height=0.3\paperheight]{img/Galaxy-Aust-Logo-Horizontal-RGB.pdf}
+                          };
+  % second logo if desired
+  % \node[at=(current page.south west),anchor=south west] {
+  %   \latexincludegraphics[keepaspectratio,
+  %                         height=0.3\paperheight,width=0.3\paperwidth]{img/image2.png}
+  %                         };
 \end{tikzpicture}
 \begin{center}
+\vspace{0.1\paperheight}
+\end{center}
 \usebeamerfont{title}\inserttitle\par
 \usebeamerfont{subtitle}\insertsubtitle\par
 \usebeamerfont{date}\insertdate\par
 \usebeamerfont{author}\insertauthor\par
 \usebeamerfont{institute}\insertinstitute\par
-\end{center}
 }
 
 %%%%%%%%%%%%%%
@@ -227,20 +251,23 @@
   \inserttocsectionnumber.~\inserttocsection
 }
 \setbeamertemplate{section page}{
-  \begin{tikzpicture}[remember picture,overlay]
-    \node[at=(current page.center)] {
-      \latexincludegraphics[
-        keepaspectratio,
-        width=\paperwidth,
-        height=\paperheight]{style/title_slide_template.eps}
-  };
-  \end{tikzpicture}
+\begin{tikzpicture}[remember picture,overlay]
+  \node[at=(current page.north west),anchor=north west] {
+    \latexincludegraphics[keepaspectratio,
+                          height=0.3\paperheight]{img/Galaxy-Aust-Logo-Horizontal-RGB.pdf}
+};
+\end{tikzpicture}
   \begin{center}
+  \vspace{0.1\paperheight}
+  \end{center}
   \usebeamerfont{title}\inserttitle\par
-  \begin{beamercolorbox}[sep=12pt,center]{part title}
+  \begin{beamercolorbox}[sep=12pt]{part title}
     \usebeamerfont{author}\tableofcontents[currentsection]
   \end{beamercolorbox}
-  \end{center}
+}
+
+\AtBeginSection[]{
+\frame[plain]{\sectionpage}
 }
 
 %%%%%%%%%%%%%%%%%
@@ -248,7 +275,7 @@
 %%%%%%%%%%%%%%%%%
 
 % slide number footer
-\setbeamertemplate{footline}[frame number]
+% \setbeamertemplate{footline}[frame number]
 
 % title on slides
 % \setbeamertemplate{headline}{
