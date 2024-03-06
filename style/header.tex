@@ -5,14 +5,12 @@
 
 \institute[]{
     \href{https://usegalaxy.org.au}{usegalaxy.org.au}
-    \and
+    and
     \href{https://melbournebioinformatics.org.au}{melbournebioinformatics.org.au}
     }
 
 \title{Genome annotation with Funannotate}
 
-\newif\ifplacelogo % create a new conditional
-\placelogotrue % set it to true
 
 \logo{
 \begin{tikzpicture}[remember picture, overlay]
@@ -208,6 +206,9 @@
 % Set up title page %
 %%%%%%%%%%%%%%%%%%%%%
 
+% Note: to suppress the \logo on the title page, leave the title blank in the
+% YAML front matter, and add \frame[plain]{\titlepage} to body.tex
+
 % from https://tex.stackexchange.com/a/3927
 % \usepackage{graphicx}   # already loaded above
 \usepackage{tikz}
@@ -266,6 +267,7 @@
   \end{beamercolorbox}
 }
 
+% As for the title page, a plain frame on the sectionpage suppresses the \logo
 \AtBeginSection[]{
 \frame[plain]{\sectionpage}
 }
