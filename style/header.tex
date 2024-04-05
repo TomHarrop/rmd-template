@@ -4,20 +4,24 @@
 %%%%%%%%%%%%
 
 \institute[]{
-    \href{https://usegalaxy.org.au}{usegalaxy.org.au}
-    and
-    \href{https://melbournebioinformatics.org.au}{melbournebioinformatics.org.au}
-    }
+  \href{https://usegalaxy.org.au}{usegalaxy.org.au}
+  and
+  \href{https://melbournebioinformatics.org.au}{melbournebioinformatics.org.au}
+}
 
-\title{Genome annotation with Funannotate}
+\title{Introduction to RNA sequencing}
 
 
 \logo{
-\begin{tikzpicture}[remember picture, overlay]
-\node[right=0.5cm] at (current page.154){
-    \latexincludegraphics[width=1cm]{img/Galaxy-Aust-Logo-Stacked-RGB.pdf}
-};
-\end{tikzpicture}
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[at=(current page.south east),anchor=south east,inner xsep=0.66\footskip,inner ysep=\footskip]{
+      \latexincludegraphics[height=0.5cm]{img/Galaxy-Aust-Logo-Stacked-RGB.pdf}
+
+    };
+    \node[at=(current page.south west),anchor=south west,inner xsep=0.66\footskip,inner ysep=\footskip]{
+      \latexincludegraphics[height=0.5cm]{img/UoM_Logo_Vert_Housed_RGB.eps}
+    };
+  \end{tikzpicture}
 }
 % \latexincludegraphics[width=1cm]{img/Galaxy-Aust-Logo-Stacked-RGB.pdf}
 
@@ -57,7 +61,7 @@
 % Have to use latexincludegraphics because includegraphics has been put in a float
 \DeclareRobustCommand{\emojione}{%
   \begingroup\normalfont
-    \latexincludegraphics[height=\fontcharht\font`\B]{img/bullet.png}%
+  \latexincludegraphics[height=\fontcharht\font`\B]{img/bullet.png}%
   \endgroup
 }
 
@@ -131,9 +135,9 @@
 \LetLtxMacro\latexincludegraphics\includegraphics
 % Update the include graphics command to include centering
 \renewcommand{\includegraphics}[2][]%
-    {\begin{center}
+{\begin{center}
     \latexincludegraphics[#1]{#2}
-    \end{center}}
+  \end{center}}
 
 %%%%%%%%%%%
 % COLOURS %
@@ -142,8 +146,8 @@
 % Define beamer colours
 \definecolor{textcolour}{HTML}{000000}      % black
 \definecolor{headingcolour}{HTML}{797979}   % grey
-\definecolor{linkcolour}{RGB}{35,61,143}      % galaxy blue
-\definecolor{bulletcolour}{RGB}{204,189,43}  % galaxy gold
+\definecolor{linkcolour}{RGB}{0, 60, 85}      % Laughing Kookaburra dark
+\definecolor{bulletcolour}{RGB}{70, 200, 240}  % Laughing Kookaburra light
 \colorlet{paleheadingcolour}{headingcolour!50!}
 
 % Place colours
@@ -162,8 +166,8 @@
 
 % Alert block
 \setbeamertemplate{blocks}[rounded]
-\setbeamercolor{block title}{fg=textcolour, bg=structure.bg}
-\setbeamercolor{block body}{fg=textcolour, bg=structure.bg}
+\setbeamercolor{block title}{fg=textcolour, bg=} % empty is transparent
+\setbeamercolor{block body}{fg=textcolour, bg=}
 \setbeamercolor{block title alerted}{fg=linkcolour, bg=paleheadingcolour!75}
 \setbeamercolor{block body alerted}{fg=textcolour, bg=paleheadingcolour!25}
 
@@ -185,7 +189,7 @@
 % Underline and colour all \hrefs
 \LetLtxMacro\latexhref\href
 \renewcommand{\href}[2]%
-    {\textcolor{linkcolour}{\underbar{\latexhref{#1}{#2}}}}
+{\textcolor{linkcolour}{\underbar{\latexhref{#1}{#2}}}}
 
 
 %%%%%%%%%%%%%%%%%%%
@@ -214,25 +218,25 @@
 \usepackage{tikz}
 
 \setbeamertemplate{title page}{
-\begin{tikzpicture}[remember picture,overlay]
-  \node[at=(current page.north west),anchor=north west] {
-    \latexincludegraphics[keepaspectratio,
-                          height=0.3\paperheight]{img/Galaxy-Aust-Logo-Horizontal-RGB.pdf}
-                          };
-  % second logo if desired
-  % \node[at=(current page.south west),anchor=south west] {
-  %   \latexincludegraphics[keepaspectratio,
-  %                         height=0.3\paperheight,width=0.3\paperwidth]{img/image2.png}
-  %                         };
-\end{tikzpicture}
-\begin{center}
-\vspace{0.1\paperheight}
-\end{center}
-\usebeamerfont{title}\inserttitle\par
-\usebeamerfont{subtitle}\insertsubtitle\par
-\usebeamerfont{date}\insertdate\par
-\usebeamerfont{author}\insertauthor\par
-\usebeamerfont{institute}\insertinstitute\par
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[at=(current page.north west),anchor=north west,outer xsep=1in+\oddsidemargin,outer ysep=14pt] {
+      \latexincludegraphics[keepaspectratio,
+        height=0.3\paperheight]{img/UoM_Logo_Vert_Housed_RGB.eps}
+    };
+    % second logo if desired
+    % \node[at=(current page.south west),anchor=south west] {
+    %   \latexincludegraphics[keepaspectratio,
+    %                         height=0.3\paperheight,width=0.3\paperwidth]{img/image2.png}
+    %                         };
+  \end{tikzpicture}
+  \begin{center}
+    \vspace{0.1\paperheight}
+  \end{center}
+  \usebeamerfont{title}\inserttitle\par
+  \usebeamerfont{subtitle}\insertsubtitle\par
+  \usebeamerfont{date}\insertdate\par
+  \usebeamerfont{author}\insertauthor\par
+  \usebeamerfont{institute}\insertinstitute\par
 }
 
 %%%%%%%%%%%%%%
@@ -252,14 +256,19 @@
   \inserttocsectionnumber.~\inserttocsection
 }
 \setbeamertemplate{section page}{
-\begin{tikzpicture}[remember picture,overlay]
-  \node[at=(current page.north west),anchor=north west] {
-    \latexincludegraphics[keepaspectratio,
-                          height=0.3\paperheight]{img/Galaxy-Aust-Logo-Horizontal-RGB.pdf}
-};
-\end{tikzpicture}
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[at=(current page.north west),anchor=north west,outer xsep=1in+\oddsidemargin,outer ysep=14pt] {
+      \latexincludegraphics[keepaspectratio,
+        height=0.3\paperheight]{img/UoM_Logo_Vert_Housed_RGB.eps}
+    };
+    \node[at=(current page.north east),anchor=north east,outer xsep=1in+\oddsidemargin,outer ysep=14pt] {
+      \latexincludegraphics[keepaspectratio,
+        height=0.3\paperheight]{img/Galaxy-Aust-Logo-Horizontal-RGB.pdf}
+    };
+
+  \end{tikzpicture}
   \begin{center}
-  \vspace{0.1\paperheight}
+    \vspace{0.1\paperheight}
   \end{center}
   \usebeamerfont{title}\inserttitle\par
   \begin{beamercolorbox}[sep=12pt]{part title}
@@ -269,7 +278,7 @@
 
 % As for the title page, a plain frame on the sectionpage suppresses the \logo
 \AtBeginSection[]{
-\frame[plain]{\sectionpage}
+  \frame[plain]{\sectionpage}
 }
 
 %%%%%%%%%%%%%%%%%
@@ -277,7 +286,10 @@
 %%%%%%%%%%%%%%%%%
 
 % slide number footer
-% \setbeamertemplate{footline}[frame number]
+\setbeamertemplate{footline}{%
+  \hfill \insertframenumber/\inserttotalframenumber \hspace*{0.66\footskip}
+  \vspace*{1ex}
+  }
 
 % title on slides
 % \setbeamertemplate{headline}{
@@ -298,10 +310,10 @@
 
 \usepackage[binary-units,unit-mode=text]{siunitx}
 \AtBeginDocument{%
-    \DeclareSIUnit\basepair{bp}%
+  \DeclareSIUnit\basepair{bp}%
 }
 \AtBeginDocument{%
-    \DeclareSIUnit\base{base}%F
+  \DeclareSIUnit\base{base}%F
 }
 
 %%%%%%%%%%%%%%%
@@ -344,14 +356,14 @@
 \usepackage{tikz-network}
 \tikzset{
   network invisible/.code={%
-    \def\VertexFillOpacity{0}
-    \def\VertexLineOpacity{0}
-    \def\VertexTextOpacity{0}
-    \def\EdgeOpacity{0}
-    \def\EdgeTextFillOpacity{0}
-    \def\EdgeTextOpacity{0}},
+      \def\VertexFillOpacity{0}
+      \def\VertexLineOpacity{0}
+      \def\VertexTextOpacity{0}
+      \def\EdgeOpacity{0}
+      \def\EdgeTextFillOpacity{0}
+      \def\EdgeTextOpacity{0}},
   network visible on/.code={%
-    \alt#1{}{\tikzset{network invisible}}}}
+      \alt#1{}{\tikzset{network invisible}}}}
 
 % colours for highlights
 \definecolor{viridis1}{HTML}{440154}
@@ -373,11 +385,11 @@
       \def\VertexLineColor{#1}
       \def\EdgeColor{#1}
       \def\TextColor{#1}%
-  },
+    },
   network hili on/.code args={#1#2}{%
-    \temporal#1{}{%
+      \temporal#1{}{%
         \tikzset{network hili=#2}
-    }{}}}
+      }{}}}
 
 % tikzmark allows you to layout text notes on equations
 % example: https://github.com/TomHarrop/comp90014_week05_ml/blob/80518394d6ce1da2bc6784caa6de4ea7c8c93560/week05a.Rmd#L514-L523
@@ -390,31 +402,31 @@
 % pandoc only defines \Shaded if it's used in the markdown
 % otherwise you get an error
 \ifdefined\Shaded
-    \usepackage[framemethod=TikZ]{mdframed}
-    
-    % mdframed bug
-    % https://tex.stackexchange.com/a/292090
-    \usepackage{xpatch}
-    \makeatletter
-    \xpatchcmd{\endmdframed}
-      {\aftergroup\endmdf@trivlist\color@endgroup}
-      {\endmdf@trivlist\color@endgroup\@doendpe}
-      {}{}
-    \makeatother
-    
-    % https://stackoverflow.com/a/49937901
-    
-    \definecolor{shadecolor}{gray}{.95}
-    \renewenvironment{Shaded}{\begin{mdframed}[
-      backgroundcolor=shadecolor,
-      linecolor = shadecolor,
-      leftmargin=\leftmargini,
-      innerleftmargin=0.5em,
-      innerrightmargin=0.5em,
-      innertopmargin=0.5ex,
-      innerbottommargin=0.5ex,
-      skipabove=2ex,
-      skipbelow=2ex]}{\end{mdframed}}
+  \usepackage[framemethod=TikZ]{mdframed}
+
+  % mdframed bug
+  % https://tex.stackexchange.com/a/292090
+  \usepackage{xpatch}
+  \makeatletter
+  \xpatchcmd{\endmdframed}
+  {\aftergroup\endmdf@trivlist\color@endgroup}
+  {\endmdf@trivlist\color@endgroup\@doendpe}
+  {}{}
+  \makeatother
+
+  % https://stackoverflow.com/a/49937901
+
+  \definecolor{shadecolor}{gray}{.95}
+  \renewenvironment{Shaded}{\begin{mdframed}[
+        backgroundcolor=shadecolor,
+        linecolor = shadecolor,
+        leftmargin=\leftmargini,
+        innerleftmargin=0.5em,
+        innerrightmargin=0.5em,
+        innertopmargin=0.5ex,
+        innerbottommargin=0.5ex,
+        skipabove=2ex,
+        skipbelow=2ex]}{\end{mdframed}}
 \fi
 
 %%%%%%%%%%%%%%

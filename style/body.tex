@@ -2,9 +2,30 @@
 % you have to leave the title blank in the yaml
 % front matter to customise the title frame here
 
-{
-\frame[plain]{
-\titlepage
-\sourceleft{Special thanks to Tianxing Zhou for help with testing}
+
+{% prefigurative title page
+\frame[plain]{%
+
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[at=(current page.center),anchor=center] {
+      \latexincludegraphics[keepaspectratio,
+        height=\paperheight,
+        width=\paperwidth,
+        page=1]{img/BINF90002_2024_title.pdf}
+    };
+  \end{tikzpicture}
+
 }
 }
+
+% {
+% \frame[plain]{
+%   \titlepage
+% }
+% }
+
+% {
+% \frame[plain]{
+%   \layout
+% }
+% }
