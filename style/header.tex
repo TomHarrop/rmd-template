@@ -132,6 +132,7 @@
 \definecolor{bcpink}{HTML}{ed087c}   % biocommons pink
 \definecolor{bcgold}{HTML}{f49f1d}   % biocommons gold
 \definecolor{bcgreen}{HTML}{5ac3b1}   % biocommons green 
+\colorlet{linkcolour}{bcgold}
 
 
 % Place colours
@@ -151,8 +152,8 @@
 \setbeamertemplate{blocks}[rounded]
 \setbeamercolor{block title}{fg=textcolour, bg=structure.bg}
 \setbeamercolor{block body}{fg=textcolour, bg=structure.bg}
-\setbeamercolor{block title alerted}{fg=linkcolour, bg=paleheadingcolour!75}
-\setbeamercolor{block body alerted}{fg=textcolour, bg=paleheadingcolour!25}
+\setbeamercolor{block title alerted}{fg=bcpink, bg=paleheadingcolour!75}
+\setbeamercolor{block body alerted}{fg=bcpink, bg=paleheadingcolour!25}
 
 % colour both section and url links
 % see https://tex.stackexchange.com/a/401885
@@ -172,7 +173,7 @@
 % Underline and colour all \hrefs
 \LetLtxMacro\latexhref\href
 \renewcommand{\href}[2]%
-    {\textcolor{bcpink}{\underbar{\latexhref{#1}{#2}}}}
+    {\textcolor{linkcolour}{\underbar{\latexhref{#1}{#2}}}}
 
 
 %%%%%%%%%%%%%%%%%%%
