@@ -3,9 +3,24 @@
 % METADATA %
 %%%%%%%%%%%%
 
+
 \institute[]{
+    \href{https://usegalaxy.org.au}{usegalaxy.org.au}
+    and
     \href{https://melbournebioinformatics.org.au}{melbournebioinformatics.org.au}
     }
+
+\title{Genome annotation with Funannotate}
+
+
+\logo{
+\begin{tikzpicture}[remember picture, overlay]
+\node[right=0.5cm] at (current page.154){
+    \latexincludegraphics[width=1cm]{img/Australian-Biocommons-Logo-Stacked-RGB.pdf}
+};
+\end{tikzpicture}
+}
+
 
 %%%%%%%%%
 % FONTS %
@@ -200,19 +215,19 @@
 
 \setbeamertemplate{title page}{
 \begin{tikzpicture}[remember picture,overlay]
-  \node[at=(current page.center)] {
+  \node[at=(current page.north west),anchor=north west] {
     \latexincludegraphics[keepaspectratio,
-                          width=\paperwidth,
-                          height=\paperheight]{style/title_slide_template.eps}
-};
+                          height=0.3\paperheight]{img/Australian-Biocommons-Logo-Horizontal-RGB.pdf}
+                          };
 \end{tikzpicture}
 \begin{center}
+\vspace{0.1\paperheight}
+\end{center}
 \usebeamerfont{title}\inserttitle\par
 \usebeamerfont{subtitle}\insertsubtitle\par
 \usebeamerfont{date}\insertdate\par
 \usebeamerfont{author}\insertauthor\par
 \usebeamerfont{institute}\insertinstitute\par
-\end{center}
 }
 
 %%%%%%%%%%%%%%
