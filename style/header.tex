@@ -126,22 +126,26 @@
 
 % Define beamer colours
 \definecolor{textcolour}{HTML}{000000}      % black
-\definecolor{headingcolour}{HTML}{5ac3b1}   % grey
-\definecolor{linkcolour}{HTML}{f49f1d}      % viridis purple
-\colorlet{paleheadingcolour}{headingcolour!50!}
+\definecolor{headinggrey}{HTML}{797979}   % grey
+\colorlet{paleheadingcolour}{headinggrey!50!}
+
+\definecolor{bcpink}{HTML}{ed087c}   % biocommons pink
+\definecolor{bcgold}{HTML}{f49f1d}   % biocommons gold
+\definecolor{bcgreen}{HTML}{5ac3b1}   % biocommons green 
+
 
 % Place colours
-\setbeamercolor{title}{fg=headingcolour}
-\setbeamercolor{frametitle}{fg=headingcolour}
+\setbeamercolor{title}{fg=headinggrey}
+\setbeamercolor{frametitle}{fg=headinggrey}
 \setbeamercolor{normal text}{fg=textcolour}
-\setbeamercolor{itemize item}{fg=linkcolour}        % bullets
-\setbeamercolor{itemize subitem}{fg=linkcolour}     % sub-bullets
-\setbeamercolor{itemize subsubitem}{fg=linkcolour}  % sub-sub-bullets
-\setbeamercolor{enumerate item}{fg=linkcolour}      % numbered lists
-% \setbeamercolor{block title}{fg=headingcolour,bg=linkcolour}
-% \setbeamercolor{block body}{fg=headingcolour,bg=linkcolour}
-\setbeamercolor{alerted text}{fg=linkcolour}
-\setbeamercolor{description item}{fg=linkcolour}
+\setbeamercolor{itemize item}{fg=bcpink}        % bullets
+\setbeamercolor{itemize subitem}{fg=bcpink}     % sub-bullets
+\setbeamercolor{itemize subsubitem}{fg=bcpink}  % sub-sub-bullets
+\setbeamercolor{enumerate item}{fg=bcpink}      % numbered lists
+% \setbeamercolor{block title}{fg=headingcolour,bg=bcpink}
+% \setbeamercolor{block body}{fg=headingcolour,bg=bcpink}
+\setbeamercolor{alerted text}{fg=bcpink}
+\setbeamercolor{description item}{fg=bcpink}
 
 % Alert block
 \setbeamertemplate{blocks}[rounded]
@@ -168,7 +172,7 @@
 % Underline and colour all \hrefs
 \LetLtxMacro\latexhref\href
 \renewcommand{\href}[2]%
-    {\textcolor{linkcolour}{\underbar{\latexhref{#1}{#2}}}}
+    {\textcolor{bcpink}{\underbar{\latexhref{#1}{#2}}}}
 
 
 %%%%%%%%%%%%%%%%%%%
