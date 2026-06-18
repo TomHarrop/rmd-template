@@ -100,8 +100,8 @@
     \insertframetitle\par
     \smallskip\end{centering}}
 % \setbeamertemplate{itemize item}{$\bullet$}
-\setbeamertemplate{itemize item}{\emojione}
-\setbeamertemplate{itemize subitem}{$\bullet$}
+\setbeamertemplate{itemize item}{$\bullet$}
+\setbeamertemplate{itemize subitem}{$\circ$}
 \setbeamertemplate{itemize subsubitem}{$\circ$}
 \setbeamertemplate{navigation symbols}{}
 \setbeamercolor{normal text}{fg=black}
@@ -247,20 +247,24 @@
   \inserttocsectionnumber.~\inserttocsection
 }
 \setbeamertemplate{section page}{
-  \begin{tikzpicture}[remember picture,overlay]
-    \node[at=(current page.center)] {
-      \latexincludegraphics[
-        keepaspectratio,
-        width=\paperwidth,
-        height=\paperheight]{style/title_slide_template.eps}
-  };
-  \end{tikzpicture}
+\begin{tikzpicture}[remember picture,overlay]
+  \node[at=(current page.north west),anchor=north west] {
+    \latexincludegraphics[keepaspectratio,
+                          height=0.3\paperheight]{img/Australian-Biocommons-Logo-Horizontal-RGB.pdf}
+};
+\end{tikzpicture}
   \begin{center}
+  \vspace{0.1\paperheight}
+  \end{center}
   \usebeamerfont{title}\inserttitle\par
-  \begin{beamercolorbox}[sep=12pt,center]{part title}
+  \begin{beamercolorbox}[sep=12pt]{part title}
     \usebeamerfont{author}\tableofcontents[currentsection]
   \end{beamercolorbox}
-  \end{center}
+}
+
+% As for the title page, a plain frame on the sectionpage suppresses the \logo
+\AtBeginSection[]{
+\frame[plain]{\sectionpage}
 }
 
 %%%%%%%%%%%%%%%%%
