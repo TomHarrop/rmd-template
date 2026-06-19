@@ -3,24 +3,25 @@
 % METADATA %
 %%%%%%%%%%%%
 
-
 \institute[]{
-    \href{https://www.biocommons.org.au/}{Australian BioCommons}
-    and
-    \href{https://unimelb.edu.au}{the University of Melbourne}
-    }
+  \href{https://www.biocommons.org.au/}{Australian BioCommons}
+  and
+  \href{https://unimelb.edu.au}{the University of Melbourne}
+}
 
 \title{Automatic reference genome assembly for Australian species}
 
-
 \logo{
-\begin{tikzpicture}[remember picture, overlay]
-\node[below right] at (current page.north west){
-    \latexincludegraphics[width=1.5cm]{img/Australian-Biocommons-Logo-Stacked-RGB.pdf}
-};
-\end{tikzpicture}
-}
+  \begin{tikzpicture}[remember picture, overlay]
 
+    \node[at=(current page.north west),
+      anchor=mid west,
+      yshift=-1.15cm,
+    ]{
+      \latexincludegraphics[width=1.5cm]{img/Australian-Biocommons-Logo-Stacked-RGB.pdf}
+    };
+  \end{tikzpicture}
+}
 
 %%%%%%%%%
 % FONTS %
@@ -57,7 +58,7 @@
 % Have to use latexincludegraphics because includegraphics has been put in a float
 \DeclareRobustCommand{\emojione}{%
   \begingroup\normalfont
-    \latexincludegraphics[height=\fontcharht\font`\B]{img/bullet.png}%
+  \latexincludegraphics[height=\fontcharht\font`\B]{img/bullet.png}%
   \endgroup
 }
 
@@ -81,14 +82,14 @@
   \begin{textblock}{}[1, 0](1, 1)
     \hfill
     \usebeamercolor[fg]{normal text} #1
-  \end{textblock}}
+\end{textblock}}
 
 \newcommand{\sourceleft}[1]{
   \tiny
   \begin{textblock}{}[0, 1](0, 1)
     \hspace{1in + \oddsidemargin}
     \usebeamercolor[fg]{normal text} #1
-  \end{textblock}}
+\end{textblock}}
 
 %%%%%%%%%%%%
 % TEMPLATE %
@@ -96,9 +97,11 @@
 
 % Remove beamer template
 \setbeamertemplate{frametitle}
-{\begin{centering}\smallskip
+{
+  \begin{centering}\smallskip
     \insertframetitle\par
-    \smallskip\end{centering}}
+    \smallskip
+\end{centering}}
 % \setbeamertemplate{itemize item}{$\bullet$}
 \setbeamertemplate{itemize item}{$\bullet$}
 \setbeamertemplate{itemize subitem}{$\circ$}
@@ -131,9 +134,10 @@
 \LetLtxMacro\latexincludegraphics\includegraphics
 % Update the include graphics command to include centering
 \renewcommand{\includegraphics}[2][]%
-    {\begin{center}
+{
+  \begin{center}
     \latexincludegraphics[#1]{#2}
-    \end{center}}
+\end{center}}
 
 %%%%%%%%%%%
 % COLOURS %
@@ -146,9 +150,8 @@
 
 \definecolor{bcpink}{HTML}{ed087c}   % biocommons pink
 \definecolor{bcgold}{HTML}{f49f1d}   % biocommons gold
-\definecolor{bcgreen}{HTML}{5ac3b1}   % biocommons green 
+\definecolor{bcgreen}{HTML}{5ac3b1}   % biocommons green
 \colorlet{linkcolour}{bcpink}
-
 
 % Place colours
 \setbeamercolor{title}{fg=headinggrey}
@@ -188,8 +191,7 @@
 % Underline and colour all \hrefs
 \LetLtxMacro\latexhref\href
 \renewcommand{\href}[2]%
-    {\textcolor{linkcolour}{\underbar{\latexhref{#1}{#2}}}}
-
+{\textcolor{linkcolour}{\underbar{\latexhref{#1}{#2}}}}
 
 %%%%%%%%%%%%%%%%%%%
 % LATEX-ONLY COLS %
@@ -204,7 +206,6 @@
 % \def\endcol{\end{column}}
 % \def\endcols{\end{columns}}
 
-
 %%%%%%%%%%%%%%%%%%%%%
 % Set up title page %
 %%%%%%%%%%%%%%%%%%%%%
@@ -214,20 +215,31 @@
 \usepackage{tikz}
 
 \setbeamertemplate{title page}{
-\begin{tikzpicture}[remember picture,overlay]
-  \node[at=(current page.north west),anchor=north west] {
-    \latexincludegraphics[keepaspectratio,
-                          height=0.3\paperheight]{img/Australian-Biocommons-Logo-Horizontal-RGB.pdf}
-                          };
-\end{tikzpicture}
-\begin{center}
-\vspace{0.1\paperheight}
-\end{center}
-\usebeamerfont{title}\inserttitle\par
-\usebeamerfont{subtitle}\insertsubtitle\par
-\usebeamerfont{date}\insertdate\par
-\usebeamerfont{author}\insertauthor\par
-\usebeamerfont{institute}\insertinstitute\par
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[at=(current page.north west),
+      anchor=mid west,
+      yshift=-0.3\paperheight,
+      xshift=\marginparpush +\marginparsep + \marginparwidth
+    ] {\latexincludegraphics[keepaspectratio,
+      height=0.2\paperheight]{img/abc_crop.pdf}
+    };
+    % second logo
+    \node[at=(current page.north east),
+      anchor=mid east,
+      yshift=-0.3\paperheight,
+      xshift=-\marginparpush - \marginparsep - \marginparwidth
+    ]{\latexincludegraphics[keepaspectratio,
+      height=0.2\paperheight]{img/UoM_logo_Horiz_housed_RGB.eps}
+    };
+  \end{tikzpicture}
+  \begin{center}
+    \vspace{0.1\paperheight}
+  \end{center}
+  \usebeamerfont{title}\inserttitle\par
+  \usebeamerfont{subtitle}\insertsubtitle\par
+  \usebeamerfont{date}\insertdate\par
+  \usebeamerfont{author}\insertauthor\par
+  \usebeamerfont{institute}\insertinstitute\par
 }
 
 %%%%%%%%%%%%%%
@@ -247,14 +259,14 @@
   \inserttocsectionnumber.~\inserttocsection
 }
 \setbeamertemplate{section page}{
-\begin{tikzpicture}[remember picture,overlay]
-  \node[at=(current page.north west),anchor=north west] {
-    \latexincludegraphics[keepaspectratio,
-                          height=0.3\paperheight]{img/Australian-Biocommons-Logo-Horizontal-RGB.pdf}
-};
-\end{tikzpicture}
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[at=(current page.north west),anchor=north west] {
+      \latexincludegraphics[keepaspectratio,
+      height=0.3\paperheight]{img/Australian-Biocommons-Logo-Horizontal-RGB.pdf}
+    };
+  \end{tikzpicture}
   \begin{center}
-  \vspace{0.1\paperheight}
+    \vspace{0.1\paperheight}
   \end{center}
   \usebeamerfont{title}\inserttitle\par
   \begin{beamercolorbox}[sep=12pt]{part title}
@@ -264,7 +276,7 @@
 
 % As for the title page, a plain frame on the sectionpage suppresses the \logo
 \AtBeginSection[]{
-\frame[plain]{\sectionpage}
+  \frame[plain]{\sectionpage}
 }
 
 %%%%%%%%%%%%%%%%%
@@ -277,7 +289,7 @@
 % title on slides
 % \setbeamertemplate{headline}{
 %   \ifnum \theframenumber=1
-%   
+%
 %   \else
 %   \vspace{1ex}
 %   \hspace{1in + \hoffset + \oddsidemargin}
@@ -293,10 +305,10 @@
 
 \usepackage[binary-units,unit-mode=text]{siunitx}
 \AtBeginDocument{%
-    \DeclareSIUnit\basepair{bp}%
+  \DeclareSIUnit\basepair{bp}%
 }
 \AtBeginDocument{%
-    \DeclareSIUnit\base{base}%F
+  \DeclareSIUnit\base{base}%F
 }
 
 %%%%%%%%%%%%%%%
@@ -316,7 +328,7 @@
 
 % Below is the "proper" way to do it. It works, in that digits and letters are
 % rendered in Lato, but symbols get clobbered
-% UPDATE: this works, but you need 
+% UPDATE: this works, but you need
 % --variable=mathspec in the pandoc arguments.
 \usepackage{mathspec}
 % \setmathfont(Digits,Latin,Greek)[Scale=MatchLowercase]{Lato}
@@ -344,9 +356,9 @@
     \def\VertexTextOpacity{0}
     \def\EdgeOpacity{0}
     \def\EdgeTextFillOpacity{0}
-    \def\EdgeTextOpacity{0}},
+  \def\EdgeTextOpacity{0}},
   network visible on/.code={%
-    \alt#1{}{\tikzset{network invisible}}}}
+\alt#1{}{\tikzset{network invisible}}}}
 
 % colours for highlights
 \definecolor{viridis1}{HTML}{440154}
@@ -364,15 +376,15 @@
 % \begin{scope}[network hili2 on={<2->}{viridis3}]
 \tikzset{
   network hili/.code={%
-      \def\VertexFillColor{#1}
-      \def\VertexLineColor{#1}
-      \def\EdgeColor{#1}
-      \def\TextColor{#1}%
+    \def\VertexFillColor{#1}
+    \def\VertexLineColor{#1}
+    \def\EdgeColor{#1}
+    \def\TextColor{#1}%
   },
   network hili on/.code args={#1#2}{%
     \temporal#1{}{%
-        \tikzset{network hili=#2}
-    }{}}}
+      \tikzset{network hili=#2}
+}{}}}
 
 % tikzmark allows you to layout text notes on equations
 % example: https://github.com/TomHarrop/comp90014_week05_ml/blob/80518394d6ce1da2bc6784caa6de4ea7c8c93560/week05a.Rmd#L514-L523
@@ -385,22 +397,23 @@
 % pandoc only defines \Shaded if it's used in the markdown
 % otherwise you get an error
 \ifdefined\Shaded
-    \usepackage[framemethod=TikZ]{mdframed}
-    
-    % mdframed bug
-    % https://tex.stackexchange.com/a/292090
-    \usepackage{xpatch}
-    \makeatletter
-    \xpatchcmd{\endmdframed}
-      {\aftergroup\endmdf@trivlist\color@endgroup}
-      {\endmdf@trivlist\color@endgroup\@doendpe}
-      {}{}
-    \makeatother
-    
-    % https://stackoverflow.com/a/49937901
-    
-    \definecolor{shadecolor}{gray}{.95}
-    \renewenvironment{Shaded}{\begin{mdframed}[
+\usepackage[framemethod=TikZ]{mdframed}
+
+% mdframed bug
+% https://tex.stackexchange.com/a/292090
+\usepackage{xpatch}
+\makeatletter
+\xpatchcmd{\endmdframed}
+{\aftergroup\endmdf@trivlist\color@endgroup}
+{\endmdf@trivlist\color@endgroup\@doendpe}
+{}{}
+\makeatother
+
+% https://stackoverflow.com/a/49937901
+
+\definecolor{shadecolor}{gray}{.95}
+\renewenvironment{Shaded}{
+  \begin{mdframed}[
       backgroundcolor=shadecolor,
       linecolor = shadecolor,
       leftmargin=\leftmargini,
@@ -409,13 +422,13 @@
       innertopmargin=0.5ex,
       innerbottommargin=0.5ex,
       skipabove=2ex,
-      skipbelow=2ex]}{\end{mdframed}}
+  skipbelow=2ex]}{
+\end{mdframed}}
 \fi
 
 %%%%%%%%%%%%%%
 % Algorithms %
 %%%%%%%%%%%%%%
-
 
 \usepackage[lined,linesnumbered]{algorithm2e}
 
