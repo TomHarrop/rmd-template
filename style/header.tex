@@ -30,7 +30,7 @@
 \usepackage[utf8]{inputenc}
 
 % Nicer code font
-% \setmonofont{inconsolata}
+\setmonofont{inconsolata}
 
 % enable dashes and quotation marks
 % \defaultfontfeatures{Ligatures=TeX}
@@ -147,6 +147,7 @@
 \definecolor{bcgold}{HTML}{f49f1d}   % biocommons gold
 \definecolor{bcgreen}{HTML}{5ac3b1}   % biocommons green
 \colorlet{linkcolour}{bcpink}
+
 
 % Place colours
 \setbeamercolor{title}{fg=headinggrey}
@@ -437,6 +438,23 @@
 % argmax is pretty common in algorithms
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BACKGROUND COLOUR FOR TT %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% redifine the texttt command to include background colouring
+% \LetLtxMacro\latextexttt\texttt
+% \renewcommand{\texttt}[1]{%
+%   {\fboxsep0.1ex\colorbox{paleheadingcolour}{%
+%     \hspace{0.15ex}%
+%       \strut\textcolor{textcolour}{\latextexttt{#1}}%
+%     \hspace{0.15ex}%
+%     }%
+%   }%
+% }
+
 
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
